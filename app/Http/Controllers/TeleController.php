@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Telefono; 
 use App\Modello;
 use App\Marca;
+use Response;
 
 class TeleController extends Controller
 {
@@ -79,11 +80,11 @@ class TeleController extends Controller
     }    
 
  
-    // public function getmodello()
-    // {
-    //     $modello = Modello::where('marca_id', $_POST['marca'])->get(); 
-    //     return view('tele.create' , ['modellos' => $modello]);
-    // }
+    public function getmodello()
+    {
+        $modello = Modello::where('marca_id', $_POST['marca'])->get(); 
+        return Response::json($modello);  
+    }
 
     // public function telefono(Request $request)
     // { 

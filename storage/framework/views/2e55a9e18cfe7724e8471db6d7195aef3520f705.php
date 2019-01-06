@@ -15,7 +15,8 @@
 					    	<label for="">Modello</label>
 					        <select class="js-select2 form-control" id="modello" name="modello">
 					            <?php $__currentLoopData = $modellos; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $modello): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-					                <option value="<?php echo e($modello->id); ?>"><?php echo e($modello->title); ?></option>
+					                <option value=""></option>
+					                
 					            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 					        </select>
 					    </div>
@@ -55,24 +56,28 @@
 <script>
 
 
-    // $('#marca').change(function () {
-        // if ($(this).val() == 'null'){
-            // return false;
-        // }
-        // else {
-        //     $.ajax({
-        //         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-        //         type: 'POST',
-                // url: '/getmodello',
-                // data: {
-                //     'marca': $(this).val(),
-                // },
-                // success: function (data) { 
-                    // $('#modello').html(data);
-                // }
-            // });
-        // }
-    // });
+    $('#marca').change(function () {
+        if ($(this).val() == 'null'){
+            return false;
+        }
+        else {
+            $.ajax({
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                type: 'POST',
+                url: '/getmodello',
+                data: {
+                    'marca': $(this).val(),
+                },
+                success: function (data) {  
+                    
+                    $('#modello').empty();
+                        $.each(data, function(key,val) {
+                            $('#modello').append('<option value=' + val.id + '>' + val.id + '</option>');
+                        });
+                }
+            });
+        }
+    });
 
 
 </script>

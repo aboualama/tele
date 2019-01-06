@@ -15,7 +15,8 @@
 					    	<label for="">Modello</label>
 					        <select class="js-select2 form-control" id="modello" name="modello">
 					            @foreach($modellos as $modello)
-					                <option value="{{$modello->id}}">{{$modello->title}}</option>
+					                <option value=""></option>
+					                {{-- <option value="{{$modello->id}}">{{$modello->title}}</option> --}}
 					            @endforeach
 					        </select>
 					    </div>
@@ -55,24 +56,28 @@
 <script>
 
 
-    // $('#marca').change(function () {
-        // if ($(this).val() == 'null'){
-            // return false;
-        // }
-        // else {
-        //     $.ajax({
-        //         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-        //         type: 'POST',
-                // url: '/getmodello',
-                // data: {
-                //     'marca': $(this).val(),
-                // },
-                // success: function (data) { 
-                    // $('#modello').html(data);
-                // }
-            // });
-        // }
-    // });
+    $('#marca').change(function () {
+        if ($(this).val() == 'null'){
+            return false;
+        }
+        else {
+            $.ajax({
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                type: 'POST',
+                url: '/getmodello',
+                data: {
+                    'marca': $(this).val(),
+                },
+                success: function (data) {  
+                    
+                    $('#modello').empty();
+                        $.each(data, function(key,val) {
+                            $('#modello').append('<option value=' + val.id + '>' + val.title + '</option>');
+                        });
+                }
+            });
+        }
+    });
 
 
 </script>
