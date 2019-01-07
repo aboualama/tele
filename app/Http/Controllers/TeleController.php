@@ -86,29 +86,26 @@ class TeleController extends Controller
         return Response::json($modello);  
     }
 
-    // public function telefono(Request $request)
-    // { 
-    //      $record = Telefono::where(function($query) use($request)
-    //         { 
- 
-    //             if($request->has('id_modello')) 
-    //             {
-    //                 $query->where('id_modello' , $request->id_modello);
-    //             }  
-    //             if($request->has('q1')) 
-    //             {
-    //                 $query->where('q1' , $request->q1);
-    //             }
-    //             if($request->has('q2')) 
-    //             {
-    //                 $query->where('q2' , $request->q2);
-    //             }
-    //             if($request->has('q3')) 
-    //             {
-    //                 $query->where('q3' , $request->q3);
-    //             }
-    //         })->first(); 
 
-    //     return Resp::success($record);
-    // } 
+  
+
+    public function search(Request $request)
+    {  
+        $marcas = Marca::all();  
+        $modellos = Modello::all(); 
+        return view('tele.telefono' , compact('modellos', 'marcas')); 
+    }   
+  
+
+    public function telefono(Request $request)
+    { 
+
+        $record = Telefono::where('modello_id' , $request->modello)->first();  
+        $prezzo = $record->prezzo; 
+        if($request->q1 === 'No') { $prezzo = $prezzo - 10; } 
+        if($request->q2 === 'No') { $prezzo = $prezzo - 10; } 
+        if($request->q3 === 'No') { $prezzo = $prezzo - 10; }
+        
+        return Resp::success($prezzo);
+    } 
 }

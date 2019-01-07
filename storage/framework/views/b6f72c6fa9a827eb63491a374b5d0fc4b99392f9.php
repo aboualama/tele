@@ -16,6 +16,11 @@
                     <span class="click-ripple animate"></span>
                     <i class="si si-plus"></i> nuovo 
                 </a>
+                <a class="btn btn-hero-success btn-rounded center center-block text-white" data-toggle="modal" 
+                    data-target="#modal-block-search" onclick="telesearch()" href="#" style="float: right">
+                    <span class="click-ripple animate"></span>
+                    <i class="si si-plus"></i> Search 
+                </a>
                 <tr> 
                     <th class="text-center" width="100px">#</th>
                     <th class="text-center">Marca</th>
@@ -129,6 +134,35 @@
     </div> 
 
 
+
+    <div class="modal" id="modal-block-search" tabindex="-1" role="dialog" aria-labelledby="modal-block-search"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="block block-themed block-transparent mb-0">
+                    <div class="block-header bg-primary-dark">
+                        <h3 class="block-title">search modello</h3>
+                        <div class="block-options">
+                            <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
+                                <i class="fa fa-fw fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="block-content">
+                        <div id="searchContent"> 
+                        </div>
+
+
+                    </div>
+                    <div class="block-content block-content-full text-right bg-light">
+                        <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Close</button>
+                        <button type="button" onclick="searchtelefono()" class="btn btn-sm btn-primary" data-dismiss="modal">Salva </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+
  
 <?php $__env->stopSection(); ?>
 
@@ -139,7 +173,19 @@
         jQuery(function () {
             Dashmix.helpers(['datepicker', 'table-tools-checkable']);
         });
+ 
 
+        function telesearch() { 
+            $.ajax({
+                url: '/search',
+                method: "GET",
+                success: function (resp) {
+                    $('#searchContent').html(resp);
+
+                }
+            });
+
+        }
         function AddNew() { 
             $.ajax({
                 url: "<?php echo e(route('telefono.create')); ?>",

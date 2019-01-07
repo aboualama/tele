@@ -16,10 +16,7 @@ Route::view('/', 'landing');
 Route::view('/dashboard', 'dashboard');
 Route::view('/examples/plugin', 'examples.plugin');
 Route::view('/examples/blank', 'examples.blank');
-
-
  
-// Route::view('/modello', 'examples.modello');
  
 
 Route::resource('/telefono', 'TeleController');
@@ -30,3 +27,7 @@ Route::resource('/modello', 'ModelloController');
 
 
 Route::post('/getmodello', 'TeleController@getmodello');
+
+
+Route::get('/search', 'TeleController@search');
+Route::post('/searchtelefono', 'TeleController@telefono');
