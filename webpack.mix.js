@@ -1,4 +1,4 @@
-let mix = require('laravel-mix');
+const mix = require('laravel-mix');
 
 /*
  |--------------------------------------------------------------------------
@@ -19,6 +19,9 @@ mix
     .sass('resources/assets/sass/dashmix/themes/xmodern.scss', 'public/css/themes/')
     .sass('resources/assets/sass/dashmix/themes/xsmooth.scss', 'public/css/themes/')
     .sass('resources/assets/sass/dashmix/themes/xwork.scss', 'public/css/themes/')
+    .sass('resources/assets/sass/dashmix/themes/xdream.scss', 'public/css/themes/')
+    .sass('resources/assets/sass/dashmix/themes/xpro.scss', 'public/css/themes/')
+    .sass('resources/assets/sass/dashmix/themes/xplay.scss', 'public/css/themes/')
 
     /* JS */
     .js('resources/assets/js/laravel/app.js', 'public/js/laravel.app.js')

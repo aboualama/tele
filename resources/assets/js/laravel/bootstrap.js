@@ -1,6 +1,5 @@
 
 window._ = require('lodash');
-// window.Popper = require('popper.js').default; // Already included in Dashmix Core JS
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -11,6 +10,7 @@ window._ = require('lodash');
 // Already included in Dashmix Core JS
 /*
 try {
+    window.Popper = require('popper.js').default;
     window.$ = window.jQuery = require('jquery');
 
     require('bootstrap');

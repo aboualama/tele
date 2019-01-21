@@ -15,6 +15,6 @@ import 'jquery.appear';
 import 'jquery-scroll-lock';
 
 // ..and assign to window the ones that need it
-window.$ = window.jQuery    = jQuery;
-window.SimpleBar            = SimpleBar;
-window.Cookies              = Cookies;
+window.$ = window.jQuery = jQuery;
+window.SimpleBar = SimpleBar;
+window.Cookies = Cookies;

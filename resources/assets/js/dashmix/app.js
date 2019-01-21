@@ -6,7 +6,7 @@
  */
 
 // Import global dependencies
-import './bootstrap.js';
+import './bootstrap';
 
 // Import required modules
 import Tools from './modules/tools';
