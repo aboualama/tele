@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request; 
 use App\Marca;
+use Storage;
 
 class MarcaController extends Controller
 {
@@ -24,9 +25,24 @@ class MarcaController extends Controller
     
  
     public function store(Request $request)
-    {
+    {  
+        // dd($request->hasFile('img'));
+
         $record = new Marca(); 
         $record->title  =$request->title; 
+
+        if (request()->hasFile('img')) 
+            {  
+                $public_path = 'uploads/marca';
+                $img_name = request('title')->getClientOriginalExtension();
+                request('img')->move($public_path , $img_name); 
+            }
+        else
+            { 
+                $img_name = 'default.png';  
+            } 
+
+        $record->img  =$img_name; 
         $record->save(); 
         return Resp::success($record);
     }
@@ -40,6 +56,20 @@ class MarcaController extends Controller
  
     public function update(Request $request, Marca $marca)
     { 
+
+        if (request()->hasFile('img')) 
+        { 
+
+            if($marca->img !==  'default.png')
+                {
+                    Storage::delete('marca/'.$marca->img);    
+                }
+            $public_path = 'uploads/marca';
+            $img_name = request('title')->getClientOriginalExtension();
+            request('img')->move($public_path , $img_name); 
+
+            $marca->img  =  $img_name; 
+        } 
 
         $marca->update($request->all());    
         return Resp::success($marca);

@@ -20,7 +20,8 @@
                 </a>
                 <tr> 
                     <th class="text-center" width="100px">#</th>
-                    <th class="text-center">Titolo</th>
+                    <th class="text-center">Image</th>
+                    <th class="text-center">Modello</th> 
                     <th class="text-center">GB</th>
                     <th class="text-center">Marca</th>
                     <th class="text-center" width="50px">Action</th> 
@@ -30,6 +31,9 @@
                 @foreach($records as $index => $record)
                     <tr class="tr{{$record->id}}">
                         <th class="font-w600 text-xinspire-darker text-center">{{$record->id}}</th>
+                        <th class="font-w600 text-xinspire-darker text-center" id ="table_img_{{$record->id}}">
+                            <img src="{{asset('/uploads/modello')}}/{{$record->img}}" style="width: 50px; height: 50px;">
+                        </th>
                         <th class="font-w600 text-xinspire-darker text-center" id ="table_title_{{$record->id}}">{{$record->title}}</th>
                         <th class="font-w600 text-xinspire-darker text-center" id ="table_gb_{{$record->id}}">{{$record->gb}}</th>
                         <th class="font-w600 text-xinspire-darker text-center" id ="table_marca_{{$record->id}}">{{$record->marca->title}}</th>
@@ -147,6 +151,7 @@
             var title = $('#title').val();
             var gb = $('#gb').val();
             var marca = $('#marca').val();
+            var img = $('#img').val();
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 type: 'POST',
@@ -155,7 +160,8 @@
 
                     'title': title,
                     'gb': gb,
-                    'marca': marca
+                    'marca': marca,
+                    'img': img
                 },
                 success: function (data) {
                     // $.notify(data.msg,"success");  
@@ -194,6 +200,7 @@
             var gb = $('#gb').val(); 
             var id = $('#Id').val();
             var marca = $('#marca').val();
+            var img = $('#img').val();
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 type: 'POST',
@@ -203,6 +210,7 @@
                     title: title, 
                     gb: gb, 
                     marca: marca,
+                    img: img
                 },
                 success: function (data) { 
                     $("#table_title_" + id).text(data.data.title); 

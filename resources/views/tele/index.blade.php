@@ -27,6 +27,7 @@
                     <th class="text-center" width="100px">#</th>
                     <th class="text-center">Marca</th>
                     <th class="text-center">Modello</th> 
+                    <th class="text-center">GB</th> 
                     <th class="text-center">Q1</th>
                     <th class="text-center">Q2</th>
                     <th class="text-center">Q3</th>
@@ -34,7 +35,7 @@
                     <th class="text-center" width="50px">Action</th> 
                 </tr>
                 </thead>
-                <tbody> 
+                <tbody>  
                 @foreach($records as $index => $record)
                     <tr class="tr{{$record->id}}">
                         <th class="font-w600 text-xinspire-darker text-center">{{$record->id}}</th>
@@ -44,6 +45,8 @@
                         <th class="font-w600 text-xinspire-darker text-center" id ="table_modello_{{$record->id}}">
                             {{$record->modello->title}}
                         </th>
+                        <th class="font-w600 text-xinspire-darker text-center" id ="table_gb_{{$record->id}}">{{$record->gb}}</th>
+            
                         <th class="font-w600 text-xinspire-darker text-center" id ="table_q1_{{$record->id}}">{{$record->q1}}</th>
                         <th class="font-w600 text-xinspire-darker text-center" id ="table_q2_{{$record->id}}">{{$record->q2}}</th>
                         <th class="font-w600 text-xinspire-darker text-center" id ="table_q3_{{$record->id}}">{{$record->q3}}</th>
@@ -186,6 +189,7 @@
             });
 
         }
+
         function AddNew() { 
             $.ajax({
                 url: "{{route('telefono.create')}}",
@@ -200,6 +204,7 @@
    
         function addtelefono() {
             var modello = $('#modello').val();
+            var gb     = $('#gb').val();
             var q1     = $('#q1').val();
             var q2     = $('#q2').val();
             var q3     = $('#q3').val();
@@ -211,6 +216,7 @@
                 data: {
 
                     'modello': modello,
+                    'gb': gb,
                     'q1': q1,
                     'q2': q2,
                     'q3': q3,
@@ -223,6 +229,7 @@
                         '<th class="font-w600 text-xinspire-darker text-center" id ="table_id">' + data.data.id + '</th>',
                         '<th class="font-w600 text-xinspire-darker text-center" id ="table_marca_"' + data.data.id + '>' + data.data.modello.marca.title + '</th>', 
                         '<th class="font-w600 text-xinspire-darker text-center" id ="table_modello_"' + data.data.id + '>' + data.data.modello.title + '</th>',
+                        '<th class="font-w600 text-xinspire-darker text-center" id ="table_gb_"' + data.data.id + '>' + data.data.gb + '</th>', 
                         '<th class="font-w600 text-xinspire-darker text-center" id ="table_q1_"' + data.data.id + '>' + data.data.q1 + '</th>',   
                         '<th class="font-w600 text-xinspire-darker text-center" id ="table_q2_"' + data.data.id + '>' + data.data.q2 + '</th>',   
                         '<th class="font-w600 text-xinspire-darker text-center" id ="table_q3_"' + data.data.id + '>' + data.data.q3 + '</th>', 
@@ -253,6 +260,7 @@
  
         function updatetelefono() {
             var modello = $('#modello').val();
+            var gb      = $('#gb').val();
             var q1      = $('#q1').val();
             var q2      = $('#q2').val();
             var q3      = $('#q3').val();
@@ -265,14 +273,16 @@
                 data: {
                     _method: "PUT", 
                     'modello': modello,
+                    'gb': gb,
                     'q1': q1,
                     'q2': q2,
                     'q3': q3,
                     'prezzo': prezzo
                 },
                 success: function (data) { 
-                    $("#table_title_" + id).text(data.data.title); 
+                    $("#table_marca_" + id).text(data.data.marca); 
                     $("#table_modello_" + id).text(data.data.modello); 
+                    $("#table_gb_" + id).text(data.data.gb); 
                     $("#table_q1_" + id).text(data.data.q1); 
                     $("#table_q2_" + id).text(data.data.q2); 
                     $("#table_q3_" + id).text(data.data.q3); 

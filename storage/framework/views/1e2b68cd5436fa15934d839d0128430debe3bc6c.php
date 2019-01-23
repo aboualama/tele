@@ -18,7 +18,8 @@
                 </a>
                 <tr> 
                     <th class="text-center" width="100px">#</th>
-                    <th class="text-center">Titolo</th>
+                    <th class="text-center">Image</th>
+                    <th class="text-center">Modello</th> 
                     <th class="text-center">GB</th>
                     <th class="text-center">Marca</th>
                     <th class="text-center" width="50px">Action</th> 
@@ -28,6 +29,9 @@
                 <?php $__currentLoopData = $records; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $record): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <tr class="tr<?php echo e($record->id); ?>">
                         <th class="font-w600 text-xinspire-darker text-center"><?php echo e($record->id); ?></th>
+                        <th class="font-w600 text-xinspire-darker text-center" id ="table_img_<?php echo e($record->id); ?>">
+                            <img src="<?php echo e(asset('/uploads/modello')); ?>/<?php echo e($record->img); ?>" style="width: 50px; height: 50px;">
+                        </th>
                         <th class="font-w600 text-xinspire-darker text-center" id ="table_title_<?php echo e($record->id); ?>"><?php echo e($record->title); ?></th>
                         <th class="font-w600 text-xinspire-darker text-center" id ="table_gb_<?php echo e($record->id); ?>"><?php echo e($record->gb); ?></th>
                         <th class="font-w600 text-xinspire-darker text-center" id ="table_marca_<?php echo e($record->id); ?>"><?php echo e($record->marca->title); ?></th>
@@ -145,6 +149,7 @@
             var title = $('#title').val();
             var gb = $('#gb').val();
             var marca = $('#marca').val();
+            var img = $('#img').val();
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 type: 'POST',
@@ -153,7 +158,8 @@
 
                     'title': title,
                     'gb': gb,
-                    'marca': marca
+                    'marca': marca,
+                    'img': img
                 },
                 success: function (data) {
                     // $.notify(data.msg,"success");  
@@ -192,6 +198,7 @@
             var gb = $('#gb').val(); 
             var id = $('#Id').val();
             var marca = $('#marca').val();
+            var img = $('#img').val();
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 type: 'POST',
@@ -201,6 +208,7 @@
                     title: title, 
                     gb: gb, 
                     marca: marca,
+                    img: img
                 },
                 success: function (data) { 
                     $("#table_title_" + id).text(data.data.title); 

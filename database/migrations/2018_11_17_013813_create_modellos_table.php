@@ -17,7 +17,7 @@ class CreateModellosTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->string('gb');
-
+            $table->string('img');   
             $table->integer('marca_id')->unsigned()->nullable();
             $table->foreign('marca_id')->references('id')->on('marcas')
                   ->onUpdate('cascade')->onDelete('cascade');

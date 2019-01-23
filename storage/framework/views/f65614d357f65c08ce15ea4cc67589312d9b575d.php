@@ -7,3 +7,8 @@
                id="title" name="title" value="<?php echo e($marca->title); ?>">
     </div>  
 </div> 
+
+<div class="form-group">
+	<label for="">IMG</label>
+	<input type="file" class="form-control" name="img"  id="img" value="<?php echo e($marca->img); ?>">
+</div>

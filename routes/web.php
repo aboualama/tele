@@ -27,7 +27,8 @@ Route::resource('/modello', 'ModelloController');
 
 
 Route::post('/getmodello', 'TeleController@getmodello');
+Route::post('/getmodellogb', 'TeleController@getmodellogb');
 
 
 Route::get('/search', 'TeleController@search');
-Route::post('/searchtelefono', 'TeleController@telefono');
+Route::post('/searchtelefono', 'TeleController@telefono'); 

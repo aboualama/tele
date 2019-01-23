@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request; 
 use App\Marca;
 use App\Modello;
+use Storage;
 
 class ModelloController extends Controller
 {
@@ -27,10 +28,24 @@ class ModelloController extends Controller
 
     public function store(Request $request)
     {
-        $record = new Modello(); 
+        $record = new Modello();   
+
         $record->title    =$request->title; 
         $record->gb       =$request->gb; 
         $record->marca_id =$request->marca; 
+
+        if (request()->hasFile('img')) 
+            {  
+                $public_path = 'uploads/modello';
+                $img_name = request('title')->getClientOriginalExtension();
+                request('img')->move($public_path , $img_name); 
+            }
+        else
+            { 
+                $img_name = 'default.png';  
+            } 
+
+        $record->img  =$img_name; 
         $record->save(); 
         return Resp::success($record);
     }
@@ -45,6 +60,21 @@ class ModelloController extends Controller
  
     public function update(Request $request, Modello $modello)
     {  
+
+        if (request()->hasFile('img')) 
+        { 
+
+            if($modello->img !==  'default.png')
+                {
+                    Storage::delete('modello/'.$modello->img);    
+                }
+            $public_path = 'uploads/modello';
+            $img_name = request('title')->getClientOriginalExtension();
+            request('img')->move($public_path , $img_name); 
+
+            $modello->img  =  $img_name; 
+        } 
+
        $modello->title    = $_POST['title'];
        $modello->gb       = $_POST['gb'];
        $modello->marca_id = $_POST['marca'];
@@ -54,8 +84,13 @@ class ModelloController extends Controller
 
  
     public function destroy(Modello $modello)
-    {
-        $modello->delete();
+    {      
+         
+        if($modello->img !==  'default.png')
+                {
+                    Storage::delete('modello/'.$modello->img);    
+                }
+        $modello->delete(); 
         return Resp::success($modello);
     }   
 }

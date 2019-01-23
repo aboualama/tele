@@ -20,9 +20,11 @@ class CreateTelefonosTable extends Migration
             $table->foreign('modello_id')->references('id')->on('modellos')
                   ->onUpdate('cascade')->onDelete('cascade');
              
-            $table->enum('q1', ['Yes', 'No'])->default('Yes'); 
-            $table->enum('q2', ['Yes', 'No'])->default('Yes'); 
-            $table->enum('q3', ['Yes', 'No'])->default('Yes'); 
+            $table->string('gb')->nullable();
+             
+            $table->decimal('q1'); 
+            $table->decimal('q2'); 
+            $table->decimal('q3'); 
             $table->decimal('prezzo');
             
             $table->timestamps();

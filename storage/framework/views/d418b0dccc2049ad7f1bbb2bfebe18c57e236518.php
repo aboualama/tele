@@ -1,7 +1,7 @@
 <?php $__env->startSection('content'); ?>
       
 
-
+ 
     <div class="block block-rounded block-bordered ">
         <div class="block-header block-header-default"><h3 class="block-title">Marca</h3>
             <div class="block-options">
@@ -18,6 +18,7 @@
                 </a>
                 <tr> 
                     <th class="text-center" width="100px">#</th>
+                    <th class="text-center">Image</th>
                     <th class="text-center">Titolo</th>
                     <th class="text-center" width="50px">Action</th> 
                 </tr>
@@ -26,6 +27,9 @@
                 <?php $__currentLoopData = $records; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $record): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <tr class="tr<?php echo e($record->id); ?>">
                         <th class="font-w600 text-xinspire-darker text-center"><?php echo e($record->id); ?></th>
+                        <th class="font-w600 text-xinspire-darker text-center" id ="table_img_<?php echo e($record->id); ?>">
+                            <img src="<?php echo e(asset('/uploads/marca')); ?>/<?php echo e($record->img); ?>" style="width: 50px; height: 50px;">
+                        </th>
                         <th class="font-w600 text-xinspire-darker text-center" id ="table_title_<?php echo e($record->id); ?>"><?php echo e($record->title); ?></th>
 
                         <td class="text-center" style="width: 50px">
@@ -137,19 +141,25 @@
   
         function addmarca() {
             var title = $('#title').val();
+            var img = $('#img').val();
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                 
                 type: 'POST',
                 url: '<?php echo e(route('marca.store')); ?>',
                 data: {
 
-                    'title': title
+                    'title': title,
+                    'img': img
                 },
                 success: function (data) {
                     // $.notify(data.msg,"success");    
                     t.row.add([
-                        '<th class="font-w600 text-xinspire-darker text-center" id ="table_id">' + data.data.id + '</th>',
-                        '<th class="font-w600 text-xinspire-darker text-center" id ="table_title_"' + data.data.id + '>' + data.data.title + '</th>', 
+                        '<th class="font-w600 text-xinspire-darker text-center" id ="table_id">' + data.data.id + '</th>\n' +
+                        '<th class="font-w600 text-xinspire-darker text-center" id ="table_img">\n' + 
+                        '<img src="<?php echo e(asset('/uploads/marca')); ?>/' + data.data.img + '" class="img-responsive">\n' +
+                        '</th>\n' +
+                        '<th class="font-w600 text-xinspire-darker text-center" id ="table_title_"' + data.data.id + '>' + data.data.title + '</th>\n' +
                         setActionButtons(data.data.id)
                     ]).draw();
                     resetInputs();

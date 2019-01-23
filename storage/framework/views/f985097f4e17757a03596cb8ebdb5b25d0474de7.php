@@ -2,22 +2,33 @@
 
    
 					<div class="form-group form-row">
-					    <div class="col-6">	
+					    <div class="col-5">	
 					    	<label for="">Marca</label>
 					        <select class="js-select2 form-control" id="marca" name="marca"> 
+					                <option value=""></option>
 					            <?php $__currentLoopData = $marcas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $marca): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 					                <option value="<?php echo e($marca->id); ?>"><?php echo e($marca->title); ?></option>
 					            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 					        </select>
 					    </div>
 			 
-					    <div class="col-6">	
+					    <div class="col-5">	
 					    	<label for="">Modello</label>
 					        <select class="js-select2 form-control" id="modello" name="modello">
-					            <?php $__currentLoopData = $modellos; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $modello): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+					            
 					                <option value=""></option>
 					                
-					            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+					            
+					        </select>
+					    </div>
+			 
+					    <div class="col-2">	
+					    	<label for="">Modello</label>
+					        <select class="js-select2 form-control" id="gb"  >
+					            
+					                <option value=""></option>
+					                
+					            
 					        </select>
 					    </div>
 					</div>
@@ -74,6 +85,10 @@
                         $.each(data, function(key,val) {
                             $('#modello').append('<option value=' + val.id + '>' + val.title + '</option>');
                         });
+                    $('#gb').empty();
+                        $.each(data, function(key,val) {
+                            $('#gb').append('<option value=' + val.gb + '>' + val.gb + '</option>');
+                        });
                 }
             });
         }
@@ -90,6 +105,7 @@
             var q1     = $('#q1').val();
             var q2     = $('#q2').val();
             var q3     = $('#q3').val(); 
+            var gb     = $('#gb').val(); 
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 type: 'POST',
@@ -99,6 +115,7 @@
                     'q1': q1,
                     'q2': q2,
                     'q3': q3, 
+                    'gb': gb, 
                 },
                 success: function (data) {   
                     $('#prezzo').html(data);
