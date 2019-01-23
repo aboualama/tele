@@ -21,10 +21,18 @@ class CreateTelefonosTable extends Migration
                   ->onUpdate('cascade')->onDelete('cascade');
              
             $table->string('gb')->nullable();
-             
-            $table->decimal('q1'); 
-            $table->decimal('q2'); 
-            $table->decimal('q3'); 
+
+            $table->decimal('q1')->nullable();
+            $table->decimal('q1_1')->nullable();
+            $table->decimal('q1_2')->nullable();
+            $table->decimal('q1_3')->nullable();
+            $table->decimal('q1_4')->nullable();
+            $table->decimal('q1_5')->nullable();
+            $table->decimal('q2')->nullable();
+            $table->decimal('q2_1')->nullable();
+            $table->decimal('q2_2')->nullable();
+            $table->decimal('q2_3')->nullable();
+            $table->decimal('q3')->nullable();
             $table->decimal('prezzo');
             
             $table->timestamps();

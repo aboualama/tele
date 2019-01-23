@@ -20,8 +20,10 @@ class ModelloController extends Controller
   
 
     public function create(Request $request)
-    {  
-        $marcas = Marca::all(); 
+    {
+        $marcas = Marca::all();
+
+        // dd($marcas);
         return view('modello.create' , compact('marcas')); 
     }  
     
