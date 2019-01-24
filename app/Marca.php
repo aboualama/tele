@@ -9,7 +9,7 @@ class Marca extends Model
 
     protected $table = 'marcas';
     public $timestamps = true;
-    protected $fillable = array('title');
+    protected $fillable = array('title' , 'img');
  
 
     public function modellos()

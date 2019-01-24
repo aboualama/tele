@@ -23,7 +23,7 @@
 					    </div>
 			 
 					    <div class="col-2">	
-					    	<label for="">Modello</label>
+					    	<label for="">GB</label>
 					        <select class="js-select2 form-control" id="gb"  >
 					            
 					                <option value=""></option>

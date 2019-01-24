@@ -2,7 +2,7 @@
 
 @section('content')
       
-
+ 
 
     <div class="block block-rounded block-bordered ">
         <div class="block-header block-header-default"><h3 class="block-title">modello</h3>
@@ -82,10 +82,6 @@
 
 
                     </div>
-                    <div class="block-content block-content-full text-right bg-light">
-                        <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Annulla</button>
-                        <button type="button" onclick="addmodello()" class="btn btn-sm btn-primary" data-dismiss="modal">Salva </button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -147,7 +143,9 @@
 
         }
   
-        function addmodello() {
+
+        $('#form').on('submit', function(e){
+            e.preventDefault();
             var title = $('#title').val();
             var gb = $('#gb').val();
             var marca = $('#marca').val();
@@ -163,21 +161,15 @@
                     'marca': marca,
                     'img': img
                 },
-                success: function (data) {
-                    // $.notify(data.msg,"success");  
-                    t = $('.js-dataTable-buttons').DataTable();  
-                    t.row.add([
-                        '<th class="font-w600 text-xinspire-darker text-center" id ="table_id">' + data.data.id + '</th>',
-                        '<th class="font-w600 text-xinspire-darker text-center" id ="table_title_"' + data.data.id + '>' + data.data.title + '</th>', 
-                        '<th class="font-w600 text-xinspire-darker text-center" id ="table_gb_"' + data.data.id + '>' + data.data.gb + '</th>', 
-                        '<th class="font-w600 text-xinspire-darker text-center" id ="table_marca_"' + data.data.id + '>' + data.data.marca.title + '</th>', 
-                        setActionButtons(data.data.id)
-                    ]).draw();
-                    resetInputs();
-                    // notifySuccess(data);
+                dataType:'JSON',
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function (data) { 
+                    $('#modal-block-large').modal('toggle');
                 }
             });
-        }
+        });
  
  
 

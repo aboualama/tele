@@ -27,9 +27,8 @@ class ModelloController extends Controller
     
 
     public function store(Request $request)
-    {
-        $record = new Modello();   
-
+    {  
+        $record = new Modello();    
         $record->title    =$request->title; 
         $record->gb       =$request->gb; 
         $record->marca_id =$request->marca; 
@@ -37,7 +36,7 @@ class ModelloController extends Controller
         if (request()->hasFile('img')) 
             {  
                 $public_path = 'uploads/modello';
-                $img_name = request('title')->getClientOriginalExtension();
+                $img_name = request('title') . time() . '.' . request('img')->getClientOriginalExtension();
                 request('img')->move($public_path , $img_name); 
             }
         else
@@ -59,17 +58,15 @@ class ModelloController extends Controller
  
  
     public function update(Request $request, Modello $modello)
-    {  
-
+    {   
         if (request()->hasFile('img')) 
-        { 
-
-            if($modello->img !==  'default.png')
+        {  
+            if($modello->img  !==  'default.png')
                 {
-                    Storage::delete('modello/'.$modello->img);    
+                    Storage::delete('modello/'. $modello->img);    
                 }
             $public_path = 'uploads/modello';
-            $img_name = request('title')->getClientOriginalExtension();
+            $img_name = request('title') . time() . '.' . request('img')->getClientOriginalExtension();
             request('img')->move($public_path , $img_name); 
 
             $modello->img  =  $img_name; 
@@ -78,7 +75,7 @@ class ModelloController extends Controller
        $modello->title    = $_POST['title'];
        $modello->gb       = $_POST['gb'];
        $modello->marca_id = $_POST['marca'];
-       $modello->save(); 
+       $modello->update(); 
        return Resp::success($modello);
     }
 

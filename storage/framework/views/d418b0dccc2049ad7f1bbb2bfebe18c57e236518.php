@@ -70,15 +70,10 @@
                         </div>
                     </div>
                     <div class="block-content">
-                        <div id="createContent">
-
-                        </div>
-
-
+                        <div id="createContent"> 
+                        </div> 
                     </div>
-                    <div class="block-content block-content-full text-right bg-light">
-                        <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Annulla</button>
-                        <button type="button" onclick="addmarca()" class="btn btn-sm btn-primary" data-dismiss="modal">Salva </button>
+                    <div class="block-content block-content-full text-right bg-light"> 
                     </div>
                 </div>
             </div>
@@ -139,7 +134,9 @@
 
         }
   
-        function addmarca() {
+
+        $('#form').on('submit', function(e){
+            e.preventDefault();
             var title = $('#title').val();
             var img = $('#img').val();
             $.ajax({
@@ -166,7 +163,7 @@
                     notifySuccess(data);
                 }
             });
-        }
+        });
  
  
 

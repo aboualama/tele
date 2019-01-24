@@ -9,7 +9,7 @@ class Modello extends Model
 
     protected $table = 'modellos';
     public $timestamps = true;
-    protected $fillable = array('marca_id', 'title' , 'gb');
+    protected $fillable = array('marca_id', 'title' , 'gb' , 'img');
  
 
 
