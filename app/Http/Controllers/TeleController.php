@@ -120,6 +120,5 @@ class TeleController extends Controller
         $prezzo = $record->prezzo - $q1 - $q2 - $q3;  
         dd($prezzo);
         return Resp::success($prezzo);
- 
-    } 
+    }
 }

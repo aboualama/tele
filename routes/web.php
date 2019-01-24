@@ -12,7 +12,7 @@
 */
 
 // Example Routes
-Route::view('/', 'landing');
+Route::resource('/', 'FrontController');
 Route::view('/dashboard', 'dashboard');
 Route::view('/examples/plugin', 'examples.plugin');
 Route::view('/examples/blank', 'examples.blank');

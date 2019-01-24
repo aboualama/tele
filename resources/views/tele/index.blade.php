@@ -206,6 +206,8 @@
             var modello = $('#modello').val();
             var gb     = $('#gb').val();
             var q1     = $('#q1').val();
+            var q1_1 = $('#q1_1').val();
+            var q1_2 = $('#q1_2').val();
             var q2     = $('#q2').val();
             var q3     = $('#q3').val();
             var prezzo = $('#prezzo').val();
@@ -218,6 +220,8 @@
                     'modello': modello,
                     'gb': gb,
                     'q1': q1,
+                    'q1_1': q1_1,
+                    'q1_2': q1_2,
                     'q2': q2,
                     'q3': q3,
                     'prezzo': prezzo
