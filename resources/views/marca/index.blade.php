@@ -143,7 +143,8 @@
   
         function addmarca() {
             var title = $('#title').val();
-            var img = $('#img').val();
+            var img = $('#img').prop('files')[0]
+
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                  
@@ -155,17 +156,9 @@
                     'img': img
                 },
                 success: function (data) {
-                    // $.notify(data.msg,"success");    
-                    t.row.add([
-                        '<th class="font-w600 text-xinspire-darker text-center" id ="table_id">' + data.data.id + '</th>\n' +
-                        '<th class="font-w600 text-xinspire-darker text-center" id ="table_img">\n' + 
-                        '<img src="{{asset('/uploads/marca')}}/' + data.data.img + '" class="img-responsive">\n' +
-                        '</th>\n' +
-                        '<th class="font-w600 text-xinspire-darker text-center" id ="table_title_"' + data.data.id + '>' + data.data.title + '</th>\n' +
-                        setActionButtons(data.data.id)
-                    ]).draw();
-                    resetInputs();
-                    notifySuccess(data);
+                    $.notify("operazione avvenuta con successo", "success");
+
+
                 }
             });
         }
@@ -179,6 +172,7 @@
                 method: "GET",
                 url: '/marca/' + id + '/edit',
                 success: function (data) {
+                    $.notify("operazione avvenuta con successo", "success");
                     $('#editContent').html(data);
 
                 }
@@ -197,7 +191,8 @@
                     _method: "PUT",
                     title: title, 
                 },
-                success: function (data) { 
+                success: function (data) {
+                    $.notify("operazione avvenuta con successo", "success");
                     $("#table_title_" + id).text(data.data.title); 
                     notifySuccess(data);
                 }
@@ -214,6 +209,7 @@
                     _method: "DELETE",
                 },
                 success: function (data) {
+                    $.notify("operazione avvenuta con successo", "success");
                     // $.notify(data.msg, 'success');
                     console.log($(this));
                     el.closest('tr').remove();

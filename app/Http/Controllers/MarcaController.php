@@ -8,11 +8,14 @@ use Storage;
 
 class MarcaController extends Controller
 {
- 
-  
+    public function __construct()
+    {
+        //$this->middleware('auth');
+    }
 
     public function index(Request $request)
-    { 
+    {
+        // dd($request);
         $records = Marca::all();
         return view('marca.index', ['records' => $records]);
     } 

@@ -140,6 +140,7 @@
                 url: "{{route('modello.create')}}",
                 method: "GET",
                 success: function (resp) {
+                    //   $.notify('Operazione avvenuta con successo','success');
                     $('#createContent').html(resp);
 
                 }
@@ -164,6 +165,7 @@
                     'img': img
                 },
                 success: function (data) {
+                    $.notify('Operazione avvenuta con successo', 'success');
                     // $.notify(data.msg,"success");  
                     t = $('.js-dataTable-buttons').DataTable();  
                     t.row.add([
@@ -188,6 +190,7 @@
                 method: "GET",
                 url: '/modello/' + id + '/edit',
                 success: function (data) {
+                    $.notify('Operazione avvenuta con successo', 'success');
                     $('#editContent').html(data);
 
                 }
@@ -212,7 +215,8 @@
                     marca: marca,
                     img: img
                 },
-                success: function (data) { 
+                success: function (data) {
+                    $.notify('Operazione avvenuta con successo', 'success');
                     $("#table_title_" + id).text(data.data.title); 
                     $("#table_gb_" + id).text(data.data.gb); 
                     $("#table_marca_" + id).text(data.data.marca.title); 
@@ -231,6 +235,7 @@
                     _method: "DELETE",
                 },
                 success: function (data) {
+                    $.notify('Operazione avvenuta con successo', 'success');
                     // $.notify(data.msg, 'success');
                     // console.log($(this));
                     el.closest('tr').remove();

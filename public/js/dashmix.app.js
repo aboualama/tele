@@ -16612,7 +16612,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
     var ESCAPE_KEYCODE = 27; // KeyboardEvent.which value for Escape (Esc) key
 
     var Default = {
-      backdrop: true,
+        backdrop: false,
       keyboard: true,
       focus: true,
       show: true
@@ -19766,6 +19766,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 }();
 
 
-        /***/ })
+        /***/
+    })
 
 /******/ });
