@@ -27,14 +27,16 @@ class TeleController extends Controller
 
     public function create(Request $request)
     {  
-        $marcas = Marca::all();  
-        $modellos = Modello::all(); 
+        $marcas = Marca::all();
+        $modellos = Modello::all();
+
         return view('tele.create' , compact('modellos', 'marcas')); 
     }   
   
     public function store(Request $request)
-    {  
-        $record = new Telefono(); 
+    {
+        $record = new Telefono();
+        //   dd($request->all());
         $record->modello_id =$request->modello; 
         $record->gb         =$request->gb; 
         $record->q1         =$request->q1; 
