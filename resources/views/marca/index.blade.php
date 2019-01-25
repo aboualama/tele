@@ -14,7 +14,7 @@
             <table class="table table-bordered table-striped table-vcenter js-dataTable-buttons">
                 <thead>
                 <a class="btn btn-hero-success btn-rounded center center-block text-white" data-toggle="modal" 
-                	data-target="#modal-block-large" onclick="AddNew()" href="#" style="float: right">
+                    data-target="#modal-block-large" onclick="AddNew()" href="#" style="float: right">
                     <span class="click-ripple animate"></span>
                     <i class="si si-plus"></i> nuovo 
                 </a>
@@ -37,7 +37,7 @@
                         <td class="text-center" style="width: 50px">
                             <div class="btn-group">
                                 <a onclick="edit('{{$record->id}}')" target="_blank" data-toggle="modal" 
-                	data-target="#modal-block-edit" >
+                    data-target="#modal-block-edit" >
                                     <button type="button" class="btn btn-sm btn-primary" data-toggle="tooltip"
                                             title="Edit"><i class="fa fa-pencil-alt"></i></button>
                                 </a>
@@ -72,15 +72,10 @@
                         </div>
                     </div>
                     <div class="block-content">
-                        <div id="createContent">
-
-                        </div>
-
-
+                        <div id="createContent"> 
+                        </div> 
                     </div>
-                    <div class="block-content block-content-full text-right bg-light">
-                        <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Annulla</button>
-                        <button type="button" onclick="addmarca()" class="btn btn-sm btn-primary" data-dismiss="modal">Salva </button>
+                    <div class="block-content block-content-full text-right bg-light"> 
                     </div>
                 </div>
             </div>
@@ -128,56 +123,55 @@
         jQuery(function () {
             Dashmix.helpers(['datepicker', 'table-tools-checkable']);
         });
-
         function AddNew() { 
             $.ajax({
                 url: "{{route('marca.create')}}",
                 method: "GET",
                 success: function (resp) {
                     $('#createContent').html(resp);
-
                 }
             });
-
         }
   
-        function addmarca() {
+        $('#form').on('submit', function(e){
+            e.preventDefault();
             var title = $('#title').val();
-            var img = $('#img').prop('files')[0]
-
+            var img = $('#img').val();
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                  
                 type: 'POST',
                 url: '{{route('marca.store')}}',
                 data: {
-
                     'title': title,
                     'img': img
                 },
                 success: function (data) {
-                    $.notify("operazione avvenuta con successo", "success");
-
-
+                    // $.notify(data.msg,"success");    
+                    t.row.add([
+                        '<th class="font-w600 text-xinspire-darker text-center" id ="table_id">' + data.data.id + '</th>\n' +
+                        '<th class="font-w600 text-xinspire-darker text-center" id ="table_img">\n' + 
+                        '<img src="{{asset('/uploads/marca')}}/' + data.data.img + '" class="img-responsive">\n' +
+                        '</th>\n' +
+                        '<th class="font-w600 text-xinspire-darker text-center" id ="table_title_"' + data.data.id + '>' + data.data.title + '</th>\n' +
+                        setActionButtons(data.data.id)
+                    ]).draw();
+                    resetInputs();
+                    notifySuccess(data);
                 }
             });
-        }
+        });
  
  
-
         function edit(id) {
-
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 method: "GET",
-                url: '/marca/' + id + '/edit',
+                url: '/admin/marca/' + id + '/edit',
                 success: function (data) {
-                    $.notify("operazione avvenuta con successo", "success");
                     $('#editContent').html(data);
-
                 }
             });
-
         }
  
         function updatemarca() {
@@ -186,35 +180,30 @@
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 type: 'POST',
-                url: '/marca/' + id,
+                url: '/admin/marca/' + id,
                 data: {
                     _method: "PUT",
                     title: title, 
                 },
-                success: function (data) {
-                    $.notify("operazione avvenuta con successo", "success");
+                success: function (data) { 
                     $("#table_title_" + id).text(data.data.title); 
                     notifySuccess(data);
                 }
             });
         }
-
-
         function destroy(id, el) {
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 type: 'POST',
-                url: '/marca/' + id,
+                url: '/admin/marca/' + id,
                 data: {
                     _method: "DELETE",
                 },
                 success: function (data) {
-                    $.notify("operazione avvenuta con successo", "success");
                     // $.notify(data.msg, 'success');
                     console.log($(this));
                     el.closest('tr').remove();
                 }
-
             });
         }
     </script>

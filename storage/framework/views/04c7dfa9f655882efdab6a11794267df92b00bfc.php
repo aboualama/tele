@@ -71,7 +71,7 @@
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 type: 'POST',
-                url: '/getmodello',
+                url: '/admin/getmodello',
                 data: {
                     'marca': $(this).val(),
                 },

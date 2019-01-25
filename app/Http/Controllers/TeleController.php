@@ -56,7 +56,7 @@ class TeleController extends Controller
 
  
     public function edit(Telefono $telefono)
-    {
+    { 
         $marcas = Marca::all(); 
         $modellos = Modello::all(); 
         return view('tele.edit' , compact('telefono', 'modellos', 'marcas')); 
@@ -110,15 +110,21 @@ class TeleController extends Controller
 
     public function telefono(Request $request)
     { 
-
-        $record = Telefono::where('modello_id' , $request->modello)->first();  
-           
-        $q1 = ($request->q1 === 'No') ? 0 : $record->q1;
-        $q2 = ($request->q2 === 'No') ? 0 : $record->q2;
-        $q3 = ($request->q3 === 'No') ? 0 : $record->q3;
-
-        $prezzo = $record->prezzo - $q1 - $q2 - $q3;  
+ 
+        $record = Telefono::where('modello_id' , $request->modello)->where('gb' , $request->gb)->first(); 
+        if($record)
+        { 
+            $q1 = ($request->q1 === 'No') ? 0 : $record->q1;
+            $q2 = ($request->q2 === 'No') ? 0 : $record->q2;
+            $q3 = ($request->q3 === 'No') ? 0 : $record->q3;
+            $prezzo = $record->prezzo - $q1 - $q2 - $q3;  
         dd($prezzo);
-        return Resp::success($prezzo);
-    }
+            return Resp::success($prezzo);
+        } 
+        else
+        { 
+            return 'no telefono found';
+        }
+ 
+    } 
 }

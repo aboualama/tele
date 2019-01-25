@@ -12,7 +12,7 @@
             <table class="table table-bordered table-striped table-vcenter js-dataTable-buttons">
                 <thead>
                 <a class="btn btn-hero-success btn-rounded center center-block text-white" data-toggle="modal" 
-                	data-target="#modal-block-large" onclick="AddNew()" href="#" style="float: right">
+                    data-target="#modal-block-large" onclick="AddNew()" href="#" style="float: right">
                     <span class="click-ripple animate"></span>
                     <i class="si si-plus"></i> nuovo 
                 </a>
@@ -35,7 +35,7 @@
                         <td class="text-center" style="width: 50px">
                             <div class="btn-group">
                                 <a onclick="edit('<?php echo e($record->id); ?>')" target="_blank" data-toggle="modal" 
-                	data-target="#modal-block-edit" >
+                    data-target="#modal-block-edit" >
                                     <button type="button" class="btn btn-sm btn-primary" data-toggle="tooltip"
                                             title="Edit"><i class="fa fa-pencil-alt"></i></button>
                                 </a>
@@ -70,15 +70,10 @@
                         </div>
                     </div>
                     <div class="block-content">
-                        <div id="createContent">
-
-                        </div>
-
-
+                        <div id="createContent"> 
+                        </div> 
                     </div>
-                    <div class="block-content block-content-full text-right bg-light">
-                        <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Annulla</button>
-                        <button type="button" onclick="addmarca()" class="btn btn-sm btn-primary" data-dismiss="modal">Salva </button>
+                    <div class="block-content block-content-full text-right bg-light"> 
                     </div>
                 </div>
             </div>
@@ -126,20 +121,18 @@
         jQuery(function () {
             Dashmix.helpers(['datepicker', 'table-tools-checkable']);
         });
-
         function AddNew() { 
             $.ajax({
                 url: "<?php echo e(route('marca.create')); ?>",
                 method: "GET",
                 success: function (resp) {
                     $('#createContent').html(resp);
-
                 }
             });
-
         }
   
-        function addmarca() {
+        $('#form').on('submit', function(e){
+            e.preventDefault();
             var title = $('#title').val();
             var img = $('#img').val();
             $.ajax({
@@ -148,7 +141,6 @@
                 type: 'POST',
                 url: '<?php echo e(route('marca.store')); ?>',
                 data: {
-
                     'title': title,
                     'img': img
                 },
@@ -166,22 +158,18 @@
                     notifySuccess(data);
                 }
             });
-        }
+        });
  
  
-
         function edit(id) {
-
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 method: "GET",
-                url: '/marca/' + id + '/edit',
+                url: '/admin/marca/' + id + '/edit',
                 success: function (data) {
                     $('#editContent').html(data);
-
                 }
             });
-
         }
  
         function updatemarca() {
@@ -190,7 +178,7 @@
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 type: 'POST',
-                url: '/marca/' + id,
+                url: '/admin/marca/' + id,
                 data: {
                     _method: "PUT",
                     title: title, 
@@ -201,13 +189,11 @@
                 }
             });
         }
-
-
         function destroy(id, el) {
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 type: 'POST',
-                url: '/marca/' + id,
+                url: '/admin/marca/' + id,
                 data: {
                     _method: "DELETE",
                 },
@@ -216,10 +202,9 @@
                     console.log($(this));
                     el.closest('tr').remove();
                 }
-
             });
         }
     </script>
 
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('layouts.backend', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php echo $__env->make('layouts.backend', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>

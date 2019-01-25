@@ -69,7 +69,7 @@
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 type: 'POST',
-                url: '/getmodello',
+                url: '/admin/getmodello',
                 data: {
                     'marca': $(this).val(),
                 },
@@ -86,25 +86,25 @@
     });
 
 
-    $('#modello').change(function () {
-        if ($(this).val() == 'null') {
-            return false;
-        } else {
-            $.ajax({
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                type: 'POST',
-                url: '/getmodellogb',
-                data: {
-                    'modello': $(this).val(),
-                },
-                success: function (data) {
-                    $('#gb').empty();
-                    $.each(data, function (key, val) {
-                        $('#gb').append('<option value=' + val.gb + '>' + val.gb + '</option>');
-                    });
-                }
-            });
-        }
-    });
+    // $('#modello').change(function () {
+    //     if ($(this).val() == 'null') {
+    //         return false;
+    //     } else {
+    //         $.ajax({
+    //             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+    //             type: 'POST',
+    //             url: '/getmodellogb',
+    //             data: {
+    //                 'modello': $(this).val(),
+    //             },
+    //             success: function (data) {
+    //                 $('#gb').empty();
+    //                 $.each(data, function (key, val) {
+    //                     $('#gb').append('<option value=' + val.gb + '>' + val.gb + '</option>');
+    //                 });
+    //             }
+    //         });
+    //     }
+    // });
 
 </script>

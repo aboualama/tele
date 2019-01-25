@@ -75,7 +75,7 @@
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 type: 'POST',
-                url: '/getmodello',
+                url: '/admin/getmodello',
                 data: {
                     'marca': $(this).val(),
                 },
@@ -85,10 +85,10 @@
                         $.each(data, function(key,val) {
                             $('#modello').append('<option value=' + val.id + '>' + val.title + '</option>');
                         });
-                    $('#gb').empty();
-                        $.each(data, function(key,val) {
-                            $('#gb').append('<option value=' + val.gb + '>' + val.gb + '</option>');
-                        });
+                    // $('#gb').empty();
+                    //     $.each(data, function(key,val) {
+                    //         $('#gb').append('<option value=' + val.gb + '>' + val.gb + '</option>');
+                    //     });
                 }
             });
         }
@@ -109,7 +109,7 @@
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 type: 'POST',
-                url: '/searchtelefono',
+                url: '/admin/searchtelefono',
                 data: { 
                     'modello': modello,
                     'q1': q1,

@@ -14,7 +14,7 @@
             <table class="table table-bordered table-striped table-vcenter js-dataTable-buttons">
                 <thead>
                 <a class="btn btn-hero-success btn-rounded center center-block text-white" data-toggle="modal" 
-                	data-target="#modal-block-large" onclick="AddNew()" href="#" style="float: right">
+                    data-target="#modal-block-large" onclick="AddNew()" href="#" style="float: right">
                     <span class="click-ripple animate"></span>
                     <i class="si si-plus"></i> nuovo 
                 </a>
@@ -55,7 +55,7 @@
                         <td class="text-center" style="width: 50px">
                             <div class="btn-group">
                                 <a onclick="edit('{{$record->id}}')" target="_blank" data-toggle="modal" 
-                	data-target="#modal-block-edit" >
+                    data-target="#modal-block-edit" >
                                     <button type="button" class="btn btn-sm btn-primary" data-toggle="tooltip"
                                             title="Edit"><i class="fa fa-pencil-alt"></i></button>
                                 </a>
@@ -180,26 +180,26 @@
 
         function telesearch() { 
             $.ajax({
-                url: '/search',
+                url: '/admin/search',
                 method: "GET",
                 success: function (resp) {
                     $('#searchContent').html(resp);
-
+        
                 }
             });
-
+ 
         }
-
+ 
         function AddNew() {
             $.ajax({
                 url: "{{route('telefono.create')}}",
                 method: "GET",
                 success: function (resp) {
                     $('#createContent').html(resp);
-
+        
                 }
             });
-
+ 
         }
    
         function addtelefono() {
@@ -216,7 +216,7 @@
                 type: 'POST',
                 url: '{{route('telefono.store')}}',
                 data: {
-
+        
                     'modello': modello,
                     'gb': gb,
                     'q1': q1,
@@ -246,20 +246,20 @@
             });
     }
  
- 
 
+ 
         function edit(id) {
 
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 method: "GET",
-                url: '/telefono/' + id + '/edit',
+                url: '/admin/telefono/' + id + '/edit',
                 success: function (data) {
                     $('#editContent').html(data);
-
+              
                 }
             });
-
+        
         }
  
         function updatetelefono() {
@@ -273,7 +273,7 @@
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 type: 'POST',
-                url: '/telefono/' + id,
+                url: '/admin/telefono/' + id,
                 data: {
                     _method: "PUT", 
                     'modello': modello,
@@ -301,7 +301,7 @@
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 type: 'POST',
-                url: '/telefono/' + id,
+                url: '/admin/telefono/' + id,
                 data: {
                     _method: "DELETE",
                 },
@@ -310,8 +310,9 @@
                     // console.log($(this));
                     el.closest('tr').remove();
                 }
-
+            
             });
+
         }
     </script>
 

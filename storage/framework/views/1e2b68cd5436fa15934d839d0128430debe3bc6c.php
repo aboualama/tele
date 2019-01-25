@@ -1,6 +1,6 @@
 <?php $__env->startSection('content'); ?>
       
-
+ 
 
     <div class="block block-rounded block-bordered ">
         <div class="block-header block-header-default"><h3 class="block-title">modello</h3>
@@ -39,7 +39,7 @@
                         <td class="text-center" style="width: 50px">
                             <div class="btn-group">
                                 <a onclick="edit('<?php echo e($record->id); ?>')" target="_blank" data-toggle="modal" 
-                	data-target="#modal-block-edit" >
+                    data-target="#modal-block-edit" >
                                     <button type="button" class="btn btn-sm btn-primary" data-toggle="tooltip"
                                             title="Edit"><i class="fa fa-pencil-alt"></i></button>
                                 </a>
@@ -79,10 +79,6 @@
                         </div>
 
 
-                    </div>
-                    <div class="block-content block-content-full text-right bg-light">
-                        <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Annulla</button>
-                        <button type="button" onclick="addmodello()" class="btn btn-sm btn-primary" data-dismiss="modal">Salva </button>
                     </div>
                 </div>
             </div>
@@ -132,20 +128,18 @@
         jQuery(function () {
             Dashmix.helpers(['datepicker', 'table-tools-checkable']);
         });
-
         function AddNew() { 
             $.ajax({
                 url: "<?php echo e(route('modello.create')); ?>",
                 method: "GET",
                 success: function (resp) {
                     $('#createContent').html(resp);
-
                 }
             });
-
         }
   
-        function addmodello() {
+        $('#form').on('submit', function(e){
+            e.preventDefault();
             var title = $('#title').val();
             var gb = $('#gb').val();
             var marca = $('#marca').val();
@@ -155,42 +149,31 @@
                 type: 'POST',
                 url: '<?php echo e(route('modello.store')); ?>',
                 data: {
-
                     'title': title,
                     'gb': gb,
                     'marca': marca,
                     'img': img
                 },
-                success: function (data) {
-                    // $.notify(data.msg,"success");  
-                    t = $('.js-dataTable-buttons').DataTable();  
-                    t.row.add([
-                        '<th class="font-w600 text-xinspire-darker text-center" id ="table_id">' + data.data.id + '</th>',
-                        '<th class="font-w600 text-xinspire-darker text-center" id ="table_title_"' + data.data.id + '>' + data.data.title + '</th>', 
-                        '<th class="font-w600 text-xinspire-darker text-center" id ="table_gb_"' + data.data.id + '>' + data.data.gb + '</th>', 
-                        '<th class="font-w600 text-xinspire-darker text-center" id ="table_marca_"' + data.data.id + '>' + data.data.marca.title + '</th>', 
-                        setActionButtons(data.data.id)
-                    ]).draw();
-                    resetInputs();
-                    // notifySuccess(data);
+                dataType:'JSON',
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function (data) { 
+                    $('#modal-block-large').modal('toggle');
                 }
             });
-        }
+        });
  
  
-
         function edit(id) {
-
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 method: "GET",
-                url: '/modello/' + id + '/edit',
+                url: '/admin/modello/' + id + '/edit',
                 success: function (data) {
                     $('#editContent').html(data);
-
                 }
             });
-
         }
  
         function updatemodello() {
@@ -202,7 +185,7 @@
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 type: 'POST',
-                url: '/modello/' + id,
+                url: '/admin/modello/' + id,
                 data: {
                     _method: "PUT",
                     title: title, 
@@ -218,13 +201,11 @@
                 }
             });
         }
-
-
         function destroy(id, el) {
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 type: 'POST',
-                url: '/modello/' + id,
+                url: '/admin/modello/' + id,
                 data: {
                     _method: "DELETE",
                 },
@@ -233,10 +214,9 @@
                     // console.log($(this));
                     el.closest('tr').remove();
                 }
-
             });
         }
     </script>
 
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('layouts.backend', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php echo $__env->make('layouts.backend', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>

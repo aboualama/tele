@@ -4,9 +4,10 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
-        <title>Dashmix - Bootstrap 4 Admin Template &amp; UI Framework</title>
+        <title>ElettroShock</title>
 
-        <meta name="description" content="Dashmix - Bootstrap 4 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
+        <meta name="description"
+              content="ElettroShock - Bootstrap 4 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
         <meta name="author" content="pixelcave">
         <meta name="robots" content="noindex, nofollow">
 
@@ -127,7 +128,7 @@
                     <div class="content-header bg-white-10">
                         <!-- Logo -->
                         <a class="link-fx font-w600 font-size-lg text-white" href="/">
-                            <span class="text-white-75">Dash</span><span class="text-white">mix</span>
+                            <span class="text-white-75">Elettro</span><span class="text-white">Shock</span>
                         </a>
                         <!-- END Logo -->
 
@@ -156,70 +157,40 @@
                 <!-- Side Navigation -->
                 <div class="content-side content-side-full">
                     <ul class="nav-main">
-                        <li class="nav-main-item">
-                            <a class="nav-main-link<?php echo e(request()->is('dashboard') ? ' active' : ''); ?>" href="/dashboard">
-                                <i class="nav-main-link-icon si si-cursor"></i>
-                                <span class="nav-main-link-name">Dashboard</span>
-                                <span class="nav-main-link-badge badge badge-pill badge-success">5</span>
-                            </a>
-                        </li>
-                        <li class="nav-main-heading">Various</li>
-                        <li class="nav-main-item<?php echo e(request()->is('examples/*') ? ' open' : ''); ?>">
-                            <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="true" href="#">
-                                <i class="nav-main-link-icon si si-bulb"></i>
-                                <span class="nav-main-link-name">Examples</span>
-                            </a>
-                            <ul class="nav-main-submenu">
-                                <li class="nav-main-item">
-                                    <a class="nav-main-link<?php echo e(request()->is('examples/plugin') ? ' active' : ''); ?>" href="/examples/plugin">
-                                        <span class="nav-main-link-name">Plugin</span>
-                                    </a>
-                                </li>
-                                <li class="nav-main-item">
-                                    <a class="nav-main-link<?php echo e(request()->is('examples/blank') ? ' active' : ''); ?>" href="/examples/blank">
-                                        <span class="nav-main-link-name">Blank</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-main-heading">More</li>
+                        
+                        
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        
                         <li class="nav-main-item open">
-                            <a class="nav-main-link" href="/">
-                                <i class="nav-main-link-icon si si-globe"></i>
-                                <span class="nav-main-link-name">Landing</span>
-                            </a>
-                        </li>
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-                        <li class="nav-main-heading">ADD NEW</li>
-                        <li class="nav-main-item open">
-                            <a class="nav-main-link<?php echo e(request()->is('/marca') ? ' active' : ''); ?>" href="/marca">
+                            <a class="nav-main-link<?php echo e(request()->is('/admin/marca') ? ' active' : ''); ?>"
+                               href="/admin/marca">
                                 <i class="nav-main-link-icon si si-globe"></i>
                                 <span class="nav-main-link-name">Marca</span>
                             </a>
                         </li>
                         <li class="nav-main-item open">
-                            <a class="nav-main-link<?php echo e(request()->is('modello') ? ' active' : ''); ?>" href="/modello">
+                            <a class="nav-main-link<?php echo e(request()->is('/admin/modello') ? ' active' : ''); ?>"
+                               href="/admin/modello">
                                 <i class="nav-main-link-icon si si-globe"></i>
                                 <span class="nav-main-link-name">Modello</span>
                             </a>
                         </li>
                         <li class="nav-main-item open">
-                            <a class="nav-main-link<?php echo e(request()->is('telefono') ? ' active' : ''); ?>" href="/telefono">
+                            <a class="nav-main-link<?php echo e(request()->is('/admin/telefono') ? ' active' : ''); ?>"
+                               href="/admin/telefono">
                                 <i class="nav-main-link-icon si si-globe"></i>
                                 <span class="nav-main-link-name">Telefone</span>
                             </a>
@@ -454,10 +425,13 @@
                 <div class="content py-0">
                     <div class="row font-size-sm">
                         <div class="col-sm-6 order-sm-2 mb-1 mb-sm-0 text-center text-sm-right">
-                            Crafted with <i class="fa fa-heart text-danger"></i> by <a class="font-w600" href="https://goo.gl/vNS3I" target="_blank">pixelcave</a>
+                            Crafted with <i class="fa fa-heart text-danger"></i> by <a class="font-w600"
+                                                                                       href="https://weeneet.com"
+                                                                                       target="_blank">Weeneet</a>
                         </div>
                         <div class="col-sm-6 order-sm-1 text-center text-sm-left">
-                            <a class="font-w600" href="https://goo.gl/mDBqx1" target="_blank">Dashmix</a> &copy; <span data-toggle="year-copy">2018</span>
+                            <a class="font-w600" href="#" target="_blank">ElettroShock</a> &copy; <span
+                                data-toggle="year-copy">2018</span>
                         </div>
                     </div>
                 </div>
@@ -471,6 +445,49 @@
 
         <!-- Laravel Scaffolding JS -->
         <script src="<?php echo e(mix('js/laravel.app.js')); ?>"></script>
+        <script src="<?php echo e(asset('js/notify.js')); ?>"></script>
+        <script src="<?php echo e(asset('js/plugins/slick-carousel/slick.min.js')); ?>"></script>
+
+        <script src="<?php echo e(asset('js/plugins/datatables/jquery.dataTables.min.js')); ?>"></script>
+        <script src="<?php echo e(asset('js/plugins/editor/js/dataTables.editor.js')); ?>"></script>
+        <script src="<?php echo e(asset('js/plugins/datatables/buttons/dataTables.buttons.js')); ?>"></script>
+        <script src="https://cdn.datatables.net/select/1.2.4/js/dataTables.select.min.js"></script>
+        <script src="<?php echo e(asset('js/plugins/datatables/dataTables.bootstrap4.min.js')); ?>"></script>
+
+        <script src="<?php echo e(asset('js/plugins/datatables/buttons/buttons.colVis.js')); ?>"></script>
+        <script src="<?php echo e(asset('js/plugins/datatables/buttons/buttons.html5.js')); ?>"></script>
+        <script src="<?php echo e(asset('js/plugins/datatables/buttons/buttons.print.js')); ?>"></script>
+        <script src="<?php echo e(asset('js/plugins/datatables/buttons-bs4/buttons.bootstrap4.min.js')); ?>"></script>
+
+        <script src="<?php echo e(asset('js/plugins/datatables/buttons/buttons.flash.js')); ?>"></script>
+
+
+        <script src="<?php echo e(asset('js/plugins/editor/js/editor.bootstrap4.js')); ?>"></script>
+        <script src="<?php echo e(asset('js/plugins/select2/js/select2.full.min.js')); ?>"></script>
+        <script src="<?php echo e(asset('js/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js')); ?>"></script>
+        <script src="<?php echo e(asset('js/plugins/slick-carousel/slick.min.js')); ?>"></script>
+        <script src="<?php echo e(asset('js/datatable-c.js')); ?>"></script>
+        <script src="<?php echo e(asset('js/custom.js')); ?>"></script>
+        <script src="<?php echo e(asset('js/printThis.js')); ?>"></script>
+        <script src="<?php echo e(asset('js/plugins/slick-carousel/slick.min.js')); ?>"></script>
+
+        <script src="<?php echo e(asset('js/plugins/datatables/jquery.dataTables.min.js')); ?>"></script>
+        <script src="<?php echo e(asset('js/plugins/editor/js/dataTables.editor.js')); ?>"></script>
+        <script src="<?php echo e(asset('js/plugins/datatables/buttons/dataTables.buttons.js')); ?>"></script>
+        <script src="https://cdn.datatables.net/select/1.2.4/js/dataTables.select.min.js"></script>
+        <script src="<?php echo e(asset('js/plugins/datatables/dataTables.bootstrap4.min.js')); ?>"></script>
+
+        <script src="<?php echo e(asset('js/plugins/datatables/buttons/buttons.colVis.js')); ?>"></script>
+        <script src="<?php echo e(asset('js/plugins/datatables/buttons/buttons.html5.js')); ?>"></script>
+        <script src="<?php echo e(asset('js/plugins/datatables/buttons/buttons.print.js')); ?>"></script>
+        <script src="<?php echo e(asset('js/plugins/datatables/buttons-bs4/buttons.bootstrap4.min.js')); ?>"></script>
+
+        <script src="<?php echo e(asset('js/plugins/datatables/buttons/buttons.flash.js')); ?>"></script>
+
+
+        <script src="<?php echo e(asset('js/plugins/editor/js/editor.bootstrap4.js')); ?>"></script>
+
+        <script src="<?php echo e(asset('js/plugins/slick-carousel/slick.min.js')); ?>"></script>
 
         <?php echo $__env->yieldContent('js_after'); ?>
     </body>

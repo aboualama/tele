@@ -12,7 +12,7 @@
             <table class="table table-bordered table-striped table-vcenter js-dataTable-buttons">
                 <thead>
                 <a class="btn btn-hero-success btn-rounded center center-block text-white" data-toggle="modal" 
-                	data-target="#modal-block-large" onclick="AddNew()" href="#" style="float: right">
+                    data-target="#modal-block-large" onclick="AddNew()" href="#" style="float: right">
                     <span class="click-ripple animate"></span>
                     <i class="si si-plus"></i> nuovo 
                 </a>
@@ -24,8 +24,8 @@
                 <tr> 
                     <th class="text-center" width="100px">#</th>
                     <th class="text-center">Marca</th>
-                    <th class="text-center">Modello</th> 
-                    <th class="text-center">GB</th> 
+                    <th class="text-center">Modello</th>
+                    <th class="text-center">GB</th>
                     <th class="text-center">Q1</th>
                     <th class="text-center">Q2</th>
                     <th class="text-center">Q3</th>
@@ -33,7 +33,7 @@
                     <th class="text-center" width="50px">Action</th> 
                 </tr>
                 </thead>
-                <tbody>  
+                <tbody>
                 <?php $__currentLoopData = $records; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $record): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <tr class="tr<?php echo e($record->id); ?>">
                         <th class="font-w600 text-xinspire-darker text-center"><?php echo e($record->id); ?></th>
@@ -46,7 +46,7 @@
 
                         </th>
                         <th class="font-w600 text-xinspire-darker text-center" id ="table_gb_<?php echo e($record->id); ?>"><?php echo e($record->gb); ?></th>
-            
+
                         <th class="font-w600 text-xinspire-darker text-center" id ="table_q1_<?php echo e($record->id); ?>"><?php echo e($record->q1); ?></th>
                         <th class="font-w600 text-xinspire-darker text-center" id ="table_q2_<?php echo e($record->id); ?>"><?php echo e($record->q2); ?></th>
                         <th class="font-w600 text-xinspire-darker text-center" id ="table_q3_<?php echo e($record->id); ?>"><?php echo e($record->q3); ?></th>
@@ -55,7 +55,7 @@
                         <td class="text-center" style="width: 50px">
                             <div class="btn-group">
                                 <a onclick="edit('<?php echo e($record->id); ?>')" target="_blank" data-toggle="modal" 
-                	data-target="#modal-block-edit" >
+                    data-target="#modal-block-edit" >
                                     <button type="button" class="btn btn-sm btn-primary" data-toggle="tooltip"
                                             title="Edit"><i class="fa fa-pencil-alt"></i></button>
                                 </a>
@@ -180,32 +180,34 @@
 
         function telesearch() { 
             $.ajax({
-                url: '/search',
+                url: '/admin/search',
                 method: "GET",
                 success: function (resp) {
                     $('#searchContent').html(resp);
-
+        
                 }
             });
-
+ 
         }
-
-        function AddNew() { 
+ 
+        function AddNew() {
             $.ajax({
                 url: "<?php echo e(route('telefono.create')); ?>",
                 method: "GET",
                 success: function (resp) {
                     $('#createContent').html(resp);
-
+        
                 }
             });
-
+ 
         }
    
         function addtelefono() {
             var modello = $('#modello').val();
             var gb     = $('#gb').val();
             var q1     = $('#q1').val();
+            var q1_1 = $('#q1_1').val();
+            var q1_2 = $('#q1_2').val();
             var q2     = $('#q2').val();
             var q3     = $('#q3').val();
             var prezzo = $('#prezzo').val();
@@ -214,10 +216,12 @@
                 type: 'POST',
                 url: '<?php echo e(route('telefono.store')); ?>',
                 data: {
-
+        
                     'modello': modello,
                     'gb': gb,
                     'q1': q1,
+                    'q1_1': q1_1,
+                    'q1_2': q1_2,
                     'q2': q2,
                     'q3': q3,
                     'prezzo': prezzo
@@ -229,8 +233,8 @@
                         '<th class="font-w600 text-xinspire-darker text-center" id ="table_id">' + data.data.id + '</th>',
                         '<th class="font-w600 text-xinspire-darker text-center" id ="table_marca_"' + data.data.id + '>' + data.data.modello.marca.title + '</th>', 
                         '<th class="font-w600 text-xinspire-darker text-center" id ="table_modello_"' + data.data.id + '>' + data.data.modello.title + '</th>',
-                        '<th class="font-w600 text-xinspire-darker text-center" id ="table_gb_"' + data.data.id + '>' + data.data.gb + '</th>', 
-                        '<th class="font-w600 text-xinspire-darker text-center" id ="table_q1_"' + data.data.id + '>' + data.data.q1 + '</th>',   
+                        '<th class="font-w600 text-xinspire-darker text-center" id ="table_gb_"' + data.data.id + '>' + data.data.gb + '</th>',
+                        '<th class="font-w600 text-xinspire-darker text-center" id ="table_q1_"' + data.data.id + '>' + data.data.q1 + '</th>',
                         '<th class="font-w600 text-xinspire-darker text-center" id ="table_q2_"' + data.data.id + '>' + data.data.q2 + '</th>',   
                         '<th class="font-w600 text-xinspire-darker text-center" id ="table_q3_"' + data.data.id + '>' + data.data.q3 + '</th>', 
                         '<th class="font-w600 text-xinspire-darker text-center" id ="table_prezzo_"' + data.data.id + '>' + data.data.prezzo + '</th>', 
@@ -242,20 +246,20 @@
             });
     }
  
- 
 
+ 
         function edit(id) {
 
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 method: "GET",
-                url: '/telefono/' + id + '/edit',
+                url: '/admin/telefono/' + id + '/edit',
                 success: function (data) {
                     $('#editContent').html(data);
-
+              
                 }
             });
-
+        
         }
  
         function updatetelefono() {
@@ -269,7 +273,7 @@
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 type: 'POST',
-                url: '/telefono/' + id,
+                url: '/admin/telefono/' + id,
                 data: {
                     _method: "PUT", 
                     'modello': modello,
@@ -279,11 +283,11 @@
                     'q3': q3,
                     'prezzo': prezzo
                 },
-                success: function (data) { 
-                    $("#table_marca_" + id).text(data.data.marca); 
-                    $("#table_modello_" + id).text(data.data.modello); 
-                    $("#table_gb_" + id).text(data.data.gb); 
-                    $("#table_q1_" + id).text(data.data.q1); 
+                success: function (data) {
+                    $("#table_marca_" + id).text(data.data.marca);
+                    $("#table_modello_" + id).text(data.data.modello);
+                    $("#table_gb_" + id).text(data.data.gb);
+                    $("#table_q1_" + id).text(data.data.q1);
                     $("#table_q2_" + id).text(data.data.q2); 
                     $("#table_q3_" + id).text(data.data.q3); 
                     $("#table_prezzo_" + id).text(data.data.prezzo); 
@@ -297,7 +301,7 @@
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 type: 'POST',
-                url: '/telefono/' + id,
+                url: '/admin/telefono/' + id,
                 data: {
                     _method: "DELETE",
                 },
@@ -306,12 +310,13 @@
                     // console.log($(this));
                     el.closest('tr').remove();
                 }
-
+            
             });
+
         }
     </script>
 
  
 
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('layouts.backend', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php echo $__env->make('layouts.backend', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
