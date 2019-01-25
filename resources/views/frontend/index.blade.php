@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="block-content">
-        <div class="row push">
+        <div class="row push ">
             <div class="col-md-12">
                 <div class="form-group row items-push mb-0">
                     @foreach($marcas as $marca)
@@ -12,6 +12,8 @@
                                 <input type="radio" class="custom-control-input" id="marca_{{$marca->id}}"
                                        name="marcaRadio" onclick="handleClick(this)" value="{{$marca->id}}">
                                 <label class="custom-control-label" for="marca_{{$marca->id}}">
+                                <img src="{{asset('/uploads/marca')}}/{{$marca->img}}" class="rounded float-left img-thumbnail"
+                                style="width: 75px; height: 65px;  " >
                                                     <span class="d-block font-w400 text-center my-3">
                                                         <span class="font-size-h4 font-w600">{{$marca->title}}</span>
                                                     </span>

@@ -1,7 +1,7 @@
 <?php $__env->startSection('content'); ?>
 
     <div class="block-content">
-        <div class="row push">
+        <div class="row push ">
             <div class="col-md-12">
                 <div class="form-group row items-push mb-0">
                     <?php $__currentLoopData = $marcas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $marca): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -10,6 +10,8 @@
                                 <input type="radio" class="custom-control-input" id="marca_<?php echo e($marca->id); ?>"
                                        name="marcaRadio" onclick="handleClick(this)" value="<?php echo e($marca->id); ?>">
                                 <label class="custom-control-label" for="marca_<?php echo e($marca->id); ?>">
+                                <img src="<?php echo e(asset('/uploads/marca')); ?>/<?php echo e($marca->img); ?>" class="rounded float-left img-thumbnail"
+                                style="width: 75px; height: 65px;  " >
                                                     <span class="d-block font-w400 text-center my-3">
                                                         <span class="font-size-h4 font-w600"><?php echo e($marca->title); ?></span>
                                                     </span>
