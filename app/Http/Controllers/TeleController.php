@@ -20,7 +20,6 @@ class TeleController extends Controller
     public function index(Request $request)
     {
         $records = Telefono::paginate(10);
-
         return view('tele.index', ['records' => $records]);
     }
 
@@ -28,17 +27,14 @@ class TeleController extends Controller
     {
         $marcas   = Marca::all();
         $modellos = Modello::all();
-
         return view('tele.create' , compact('modellos', 'marcas'));
     }
 
     public function store(Request $request)
     {
         $record = new Telefono();
-        //  dd($request->all());
-
         $record->modello_id =$request->modello;
-        // $record->gb         =$request->gb;
+
         $record->q1     =$request->q1;
         $record->q1_2   = $request->q1_2;
         $record->q1_3   = $request->q1_3;
@@ -128,11 +124,5 @@ class TeleController extends Controller
         dd($prezzo);
 
             return Resp::success($prezzo);
-        }
-        else
-        {
-            return 'no telefono found';
-        }
-
     }
 }
