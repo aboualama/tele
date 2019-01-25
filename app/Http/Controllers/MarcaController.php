@@ -71,7 +71,8 @@ class MarcaController extends Controller
         
         $marca->update($request->all());    
         return Resp::success($marca);
-    }
+    } 
+    
  
     public function destroy(Marca $marca)
     {  
@@ -81,7 +82,7 @@ class MarcaController extends Controller
                 }
         $marca->delete(); 
         return Resp::success($marca);
-    }   
+    } 
 }
     // public function marcastore(Request $request)
     // { 
