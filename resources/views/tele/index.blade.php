@@ -1,7 +1,7 @@
 @extends('layouts.backend')
 
 @section('content')
-      
+
 
 
     <div class="block block-rounded block-bordered ">
@@ -13,17 +13,17 @@
         <div class="block-content">
             <table class="table table-bordered table-striped table-vcenter js-dataTable-buttons">
                 <thead>
-                <a class="btn btn-hero-success btn-rounded center center-block text-white" data-toggle="modal" 
-                	data-target="#modal-block-large" onclick="AddNew()" href="#" style="float: right">
+                <a class="btn btn-hero-success btn-rounded center center-block text-white" data-toggle="modal"
+                   data-target="#modal-block-large" onclick="AddNew()" href="#" style="float: right">
                     <span class="click-ripple animate"></span>
-                    <i class="si si-plus"></i> nuovo 
+                    <i class="si si-plus"></i> nuovo
                 </a>
-                <a class="btn btn-hero-success btn-rounded center center-block text-white" data-toggle="modal" 
-                    data-target="#modal-block-search" onclick="telesearch()" href="#" style="float: right">
+                <a class="btn btn-hero-success btn-rounded center center-block text-white" data-toggle="modal"
+                   data-target="#modal-block-search" onclick="telesearch()" href="#" style="float: right">
                     <span class="click-ripple animate"></span>
-                    <i class="si si-plus"></i> Search 
+                    <i class="si si-plus"></i> Search
                 </a>
-                <tr> 
+                <tr>
                     <th class="text-center" width="100px">#</th>
                     <th class="text-center">Marca</th>
                     <th class="text-center">Modello</th>
@@ -32,30 +32,35 @@
                     <th class="text-center">Q2</th>
                     <th class="text-center">Q3</th>
                     <th class="text-center">prezzo</th>
-                    <th class="text-center" width="50px">Action</th> 
+                    <th class="text-center" width="50px">Action</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($records as $index => $record)
                     <tr class="tr{{$record->id}}">
                         <th class="font-w600 text-xinspire-darker text-center">{{$record->id}}</th>
-                        <th class="font-w600 text-xinspire-darker text-center" id ="table_marca_{{$record->id}}">
+                        <th class="font-w600 text-xinspire-darker text-center" id="table_marca_{{$record->id}}">
                             {{$record->modello->marca->title}}
                         </th>
-                        <th class="font-w600 text-xinspire-darker text-center" id ="table_modello_{{$record->id}}">
+                        <th class="font-w600 text-xinspire-darker text-center" id="table_modello_{{$record->id}}">
                             {{$record->modello->title}}
                         </th>
-                        <th class="font-w600 text-xinspire-darker text-center" id ="table_gb_{{$record->id}}">{{$record->gb}}</th>
+                        <th class="font-w600 text-xinspire-darker text-center"
+                            id="table_gb_{{$record->id}}">{{$record->gb}}</th>
 
-                        <th class="font-w600 text-xinspire-darker text-center" id ="table_q1_{{$record->id}}">{{$record->q1}}</th>
-                        <th class="font-w600 text-xinspire-darker text-center" id ="table_q2_{{$record->id}}">{{$record->q2}}</th>
-                        <th class="font-w600 text-xinspire-darker text-center" id ="table_q3_{{$record->id}}">{{$record->q3}}</th>
-                        <th class="font-w600 text-xinspire-darker text-center" id ="table_prezzo_{{$record->id}}">{{$record->prezzo}}</th>
+                        <th class="font-w600 text-xinspire-darker text-center"
+                            id="table_q1_{{$record->id}}">{{$record->q1}}</th>
+                        <th class="font-w600 text-xinspire-darker text-center"
+                            id="table_q2_{{$record->id}}">{{$record->q2}}</th>
+                        <th class="font-w600 text-xinspire-darker text-center"
+                            id="table_q3_{{$record->id}}">{{$record->q3}}</th>
+                        <th class="font-w600 text-xinspire-darker text-center"
+                            id="table_prezzo_{{$record->id}}">{{$record->prezzo}}</th>
 
                         <td class="text-center" style="width: 50px">
                             <div class="btn-group">
-                                <a onclick="edit('{{$record->id}}')" target="_blank" data-toggle="modal" 
-                	data-target="#modal-block-edit" >
+                                <a onclick="edit('{{$record->id}}')" target="_blank" data-toggle="modal"
+                                   data-target="#modal-block-edit">
                                     <button type="button" class="btn btn-sm btn-primary" data-toggle="tooltip"
                                             title="Edit"><i class="fa fa-pencil-alt"></i></button>
                                 </a>
@@ -70,11 +75,11 @@
                 </tbody>
             </table>
         </div>
-            <div>{{ $records->links() }}</div> 
+        <div>{{ $records->links() }}</div>
     </div>
 
 
- 
+
 
 
     <div class="modal" id="modal-block-large" tabindex="-1" role="dialog" aria-labelledby="modal-block-large"
@@ -99,14 +104,16 @@
                     </div>
                     <div class="block-content block-content-full text-right bg-light">
                         <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Annulla</button>
-                        <button type="button" onclick="addtelefono()" class="btn btn-sm btn-primary" data-dismiss="modal">Salva </button>
+                        <button type="button" onclick="addtelefono()" class="btn btn-sm btn-primary"
+                                data-dismiss="modal">Salva
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
- 
+
 
     <div class="modal" id="modal-block-edit" tabindex="-1" role="dialog" aria-labelledby="modal-block-edit"
          aria-hidden="true">
@@ -122,19 +129,21 @@
                         </div>
                     </div>
                     <div class="block-content">
-                        <div id="editContent"> 
+                        <div id="editContent">
                         </div>
 
 
                     </div>
                     <div class="block-content block-content-full text-right bg-light">
                         <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Close</button>
-                        <button type="button" onclick="updatetelefono()" class="btn btn-sm btn-primary" data-dismiss="modal">Salva </button>
+                        <button type="button" onclick="updatetelefono()" class="btn btn-sm btn-primary"
+                                data-dismiss="modal">Salva
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
-    </div> 
+    </div>
 
 
 
@@ -152,21 +161,23 @@
                         </div>
                     </div>
                     <div class="block-content">
-                        <div id="searchContent"> 
+                        <div id="searchContent">
                         </div>
 
 
                     </div>
                     <div class="block-content block-content-full text-right bg-light">
                         <button type="button" class="btn btn-sm btn-light" data-dismiss="modal">Close</button>
-                        <button type="button" onclick="searchtelefono()" class="btn btn-sm btn-primary" data-dismiss="modal">Salva </button>
+                        <button type="button" onclick="searchtelefono()" class="btn btn-sm btn-primary"
+                                data-dismiss="modal">Salva
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
-    </div> 
+    </div>
 
- 
+
 @endsection
 
 
@@ -176,9 +187,9 @@
         jQuery(function () {
             Dashmix.helpers(['datepicker', 'table-tools-checkable']);
         });
- 
 
-        function telesearch() { 
+
+        function telesearch() {
             $.ajax({
                 url: '/search',
                 method: "GET",
@@ -201,24 +212,45 @@
             });
 
         }
-   
+
         function addtelefono() {
             var modello = $('#modello').val();
-            var gb     = $('#gb').val();
-            var q1     = $('#q1').val();
+            var map = {};
+
+            //    var gb     = $('#gb').val();
+            var q1 = $('#q1').val();
             var q1_1 = $('#q1_1').val();
             var q1_2 = $('#q1_2').val();
-            var q2     = $('#q2').val();
-            var q3     = $('#q3').val();
+            var q2 = $('#q2').val();
+            var q3 = $('#q3').val();
             var prezzo = $('#prezzo').val();
+            $('.newGb').each(function (i, obj) {
+
+                Gb = $('.GBValue', this).val();
+                if (!Gb) {
+                    $('.GBValue', this).focus();
+                    $('.GBValue', this).notify('campo obligatorio', 'error');
+                }
+                prezzo = $('.GBPrice', this).val();
+                if (!prezzo) {
+                    $('.GBPrice', this).focus();
+                    $('.GBPrice', this).notify('campo obligatorio', 'error');
+                }
+                map[i] = {
+                    gb: Gb,
+                    prezzo: prezzo
+                }
+
+                //   return false;
+
+            });
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 type: 'POST',
                 url: '{{route('telefono.store')}}',
                 data: {
-
                     'modello': modello,
-                    'gb': gb,
+                    'gb': map,
                     'q1': q1,
                     'q1_1': q1_1,
                     'q1_2': q1_2,
@@ -227,26 +259,25 @@
                     'prezzo': prezzo
                 },
                 success: function (data) {
-                    // $.notify(data.msg,"success");  
-                    t = $('.js-dataTable-buttons').DataTable();  
+                    $.notify(data.msg, "success");
+                    t = $('.js-dataTable-buttons').DataTable();
                     t.row.add([
                         '<th class="font-w600 text-xinspire-darker text-center" id ="table_id">' + data.data.id + '</th>',
-                        '<th class="font-w600 text-xinspire-darker text-center" id ="table_marca_"' + data.data.id + '>' + data.data.modello.marca.title + '</th>', 
+                        '<th class="font-w600 text-xinspire-darker text-center" id ="table_marca_"' + data.data.id + '>' + data.data.modello.marca.title + '</th>',
                         '<th class="font-w600 text-xinspire-darker text-center" id ="table_modello_"' + data.data.id + '>' + data.data.modello.title + '</th>',
                         '<th class="font-w600 text-xinspire-darker text-center" id ="table_gb_"' + data.data.id + '>' + data.data.gb + '</th>',
                         '<th class="font-w600 text-xinspire-darker text-center" id ="table_q1_"' + data.data.id + '>' + data.data.q1 + '</th>',
-                        '<th class="font-w600 text-xinspire-darker text-center" id ="table_q2_"' + data.data.id + '>' + data.data.q2 + '</th>',   
-                        '<th class="font-w600 text-xinspire-darker text-center" id ="table_q3_"' + data.data.id + '>' + data.data.q3 + '</th>', 
-                        '<th class="font-w600 text-xinspire-darker text-center" id ="table_prezzo_"' + data.data.id + '>' + data.data.prezzo + '</th>', 
+                        '<th class="font-w600 text-xinspire-darker text-center" id ="table_q2_"' + data.data.id + '>' + data.data.q2 + '</th>',
+                        '<th class="font-w600 text-xinspire-darker text-center" id ="table_q3_"' + data.data.id + '>' + data.data.q3 + '</th>',
+                        '<th class="font-w600 text-xinspire-darker text-center" id ="table_prezzo_"' + data.data.id + '>' + data.data.prezzo + '</th>',
                         setActionButtons(data.data.id)
                     ]).draw();
                     resetInputs();
                     // notifySuccess(data);
                 }
             });
-    }
- 
- 
+        }
+
 
         function edit(id) {
 
@@ -261,21 +292,23 @@
             });
 
         }
- 
+
         function updatetelefono() {
             var modello = $('#modello').val();
-            var gb      = $('#gb').val();
-            var q1      = $('#q1').val();
-            var q2      = $('#q2').val();
-            var q3      = $('#q3').val();
-            var prezzo  = $('#prezzo').val();
-            var id      = $('#Id').val();
+            var gb = $('#gb').val();
+            var q1 = $('#q1').val();
+            var q1_2 = $('#q1_2').val();
+            var q1_3 = $('#q1_3').val();
+            var q2 = $('#q2').val();
+            var q3 = $('#q3').val();
+            var prezzo = $('#prezzo').val();
+            var id = $('#Id').val();
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 type: 'POST',
                 url: '/telefono/' + id,
                 data: {
-                    _method: "PUT", 
+                    _method: "PUT",
                     'modello': modello,
                     'gb': gb,
                     'q1': q1,
@@ -288,9 +321,9 @@
                     $("#table_modello_" + id).text(data.data.modello);
                     $("#table_gb_" + id).text(data.data.gb);
                     $("#table_q1_" + id).text(data.data.q1);
-                    $("#table_q2_" + id).text(data.data.q2); 
-                    $("#table_q3_" + id).text(data.data.q3); 
-                    $("#table_prezzo_" + id).text(data.data.prezzo); 
+                    $("#table_q2_" + id).text(data.data.q2);
+                    $("#table_q3_" + id).text(data.data.q3);
+                    $("#table_prezzo_" + id).text(data.data.prezzo);
                     // notifySuccess(data);
                 }
             });
@@ -301,20 +334,20 @@
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 type: 'POST',
-                url: '/telefono/' + id,
+                url: '/admin/telefono/' + id,
                 data: {
                     _method: "DELETE",
                 },
-                success: function (data) {
-                    // $.notify(data.msg, 'success');
+                success: function (data, el) {
+                    $.notify(data.msg, 'success');
                     // console.log($(this));
-                    el.closest('tr').remove();
+                    $(el).closest('tr').remove();
                 }
 
             });
         }
     </script>
 
- 
+
 
 @endsection

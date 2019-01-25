@@ -481,8 +481,8 @@
         <script src="{{ asset('js/notify.js') }}"></script>
         <script src="{{ asset('js/plugins/slick-carousel/slick.min.js') }}"></script>
 
-        <script src="{{ asset('js/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-        <script src="{{ asset('js/plugins/editor/js/dataTables.editor.js') }}"></script>
+        {{-- <script src="{{ asset('js/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+         <script src="{{ asset('js/plugins/editor/js/dataTables.editor.js') }}"></script> --}}
         <script src="{{ asset('js/plugins/datatables/buttons/dataTables.buttons.js') }}"></script>
         <script src="https://cdn.datatables.net/select/1.2.4/js/dataTables.select.min.js"></script>
         <script src="{{ asset('js/plugins/datatables/dataTables.bootstrap4.min.js') }}"></script>
@@ -495,17 +495,18 @@
         <script src="{{ asset('js/plugins/datatables/buttons/buttons.flash.js') }}"></script>
 
 
-        <script src="{{ asset('js/plugins/editor/js/editor.bootstrap4.js') }}"></script>
-        <script src="{{ asset('js/plugins/select2/js/select2.full.min.js') }}"></script>
-        <script src="{{ asset('js/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
-        <script src="{{ asset('js/plugins/slick-carousel/slick.min.js') }}"></script>
+        {{--     <script src="{{ asset('js/plugins/editor/js/editor.bootstrap4.js') }}"></script>
+             <script src="{{ asset('js/plugins/select2/js/select2.full.min.js') }}"></script>
+             <script src="{{ asset('js/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+             <script src="{{ asset('js/plugins/slick-carousel/slick.min.js') }}"></script>
+             --}}
         <script src="{{ asset('js/datatable-c.js') }}"></script>
         <script src="{{ asset('js/custom.js') }}"></script>
         <script src="{{ asset('js/printThis.js') }}"></script>
         <script src="{{ asset('js/plugins/slick-carousel/slick.min.js') }}"></script>
 
         <script src="{{ asset('js/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-        <script src="{{ asset('js/plugins/editor/js/dataTables.editor.js') }}"></script>
+        {{-- <script src="{{ asset('js/plugins/editor/js/dataTables.editor.js') }}"></script>--}}
         <script src="{{ asset('js/plugins/datatables/buttons/dataTables.buttons.js') }}"></script>
         <script src="https://cdn.datatables.net/select/1.2.4/js/dataTables.select.min.js"></script>
         <script src="{{ asset('js/plugins/datatables/dataTables.bootstrap4.min.js') }}"></script>
@@ -518,7 +519,7 @@
         <script src="{{ asset('js/plugins/datatables/buttons/buttons.flash.js') }}"></script>
 
 
-        <script src="{{ asset('js/plugins/editor/js/editor.bootstrap4.js') }}"></script>
+        {{-- <script src="{{ asset('js/plugins/editor/js/editor.bootstrap4.js') }}"></script>--}}
 
         <script src="{{ asset('js/plugins/slick-carousel/slick.min.js') }}"></script>
 

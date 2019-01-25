@@ -17,5 +17,8 @@ class Telefono extends Model
         return $this->belongsTo(Modello::class);
     }
 
- 
+    public function gb()
+    {
+        return $this->hasMany(Gb::class);
+    }
 }

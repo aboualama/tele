@@ -12,23 +12,61 @@
     <div class="col-5">
         <label for="">Modello</label>
         <select class="js-select2 form-control" id="modello" name="modello">
-            {{-- @foreach($modellos as $modello) --}}
             <option value=""></option>
-            {{-- <option value="{{$modello->id}}">{{$modello->title}}</option> --}}
-            {{-- @endforeach --}}
+            @foreach($modellos as $modello)
+
+                <option value="{{$modello->id}}">{{$modello->title}}</option>
+            @endforeach
         </select>
     </div>
 
-    <div class="col-2">
-        <label for="">GB</label>
-        <select class="js-select2 form-control" id="gb">
-            {{-- @foreach($modellos as $modello) --}}
-            <option value=""></option>
-            {{-- <option value="{{$modello->id}}">{{$modello->title}}</option> --}}
-            {{-- @endforeach --}}
-        </select>
+    {{-- <div class="col-2">
+         <label for="">GB</label>
+         <select class="js-select2 form-control" id="gb">
+             --}}{{-- @foreach($modellos as $modello) --}}{{--
+             <option value=""></option>
+             --}}{{-- <option value="{{$modello->id}}">{{$modello->title}}</option> --}}{{--
+             --}}{{-- @endforeach --}}{{--
+         </select>
+     </div>--}}
+</div>
+
+<div class="form-group " id="gbBlock">
+    <div class="newGb row">
+        <div class="col-5">
+            <label for="">GB</label>
+            <input class="form-control GBValue" type="number">
+        </div>
+        <div class="col-5">
+            <label for="">Prezzo</label>
+            <input class="form-control GBPrice" type="number">
+        </div>
+        <div class="col-2"><a class="btn btn-hero-sm" onclick="removeGb(this)"> x </a></div>
     </div>
 </div>
+<script>
+    function addNewGB() {
+        html = "<div class=\"newGb row\" >\n" +
+            "        <div class=\"col-5\">\n" +
+            "            <label for=\"\">GB</label>\n" +
+            "            <input class=\"form-control GBValue\" type=\"number\">\n" +
+            "        </div>\n" +
+            "        <div class=\"col-5\">\n" +
+            "            <label for=\"\">Prezzo</label>\n" +
+            "            <input class=\"form-control GBPrice\" type=\"number\">\n" +
+            "        </div>\n" +
+            "        <div class=\"col-2\"><a class=\"btn btn-hero-sm\" onclick=\"removeGb(this)\"> x </a></div>\n" +
+            "    </div>";
+        $('#gbBlock').append(html);
+    }
+
+    function removeGb(x) {
+        x.closest('.newGb').remove();
+        console.log(x.closest('.newGb'));
+
+    }
+</script>
+<a class="btn btn-hero-sm btn-success float-right" onclick="addNewGB()"> Aggiungi</a>
 
 <div class="form-group form-row">
     <div class="row form-group form-row">
@@ -52,10 +90,10 @@
         <input class="form-control" type="number" id="q3" name="q3">
     </div>
 
-    <div class="col-3">
-        <label for="">prezzo</label>
-        <input class="form-control" type="number" id="prezzo" name="prezzo">
-    </div>
+    {{--  <div class="col-3">
+          <label for="">prezzo</label>
+          <input class="form-control" type="number" id="prezzo" name="prezzo">
+      </div>--}}
 </div>
 
 
