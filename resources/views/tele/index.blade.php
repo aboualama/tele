@@ -191,7 +191,7 @@
 
         function telesearch() {
             $.ajax({
-                url: '/search',
+                url: '/admin/search',
                 method: "GET",
                 success: function (resp) {
                     $('#searchContent').html(resp);
@@ -284,7 +284,7 @@
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 method: "GET",
-                url: '/telefono/' + id + '/edit',
+                url: '/admin/telefono/' + id + '/edit',
                 success: function (data) {
                     $('#editContent').html(data);
 
@@ -306,7 +306,7 @@
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 type: 'POST',
-                url: '/telefono/' + id,
+                url: '/admin/telefono/' + id,
                 data: {
                     _method: "PUT",
                     'modello': modello,
@@ -345,6 +345,7 @@
                 }
 
             });
+
         }
     </script>
 

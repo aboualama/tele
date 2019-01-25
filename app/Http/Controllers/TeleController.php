@@ -121,13 +121,18 @@ class TeleController extends Controller
         $record = Telefono::find($request->modello);
         dd($record);
 
-        $q1 = ($request->q1 === 'No') ? 0 : $record->q1;
-        $q2 = ($request->q2 === 'No') ? 0 : $record->q2;
-        $q3 = ($request->q3 === 'No') ? 0 : $record->q3;
-
+            $q1 = ($request->q1 === 'No') ? 0 : $record->q1;
+            $q2 = ($request->q2 === 'No') ? 0 : $record->q2;
+            $q3 = ($request->q3 === 'No') ? 0 : $record->q3;
         $prezzo = $record->prezzo - $q1 - $q2 - $q3;
         dd($prezzo);
 
-        return Resp::success($prezzo);
+            return Resp::success($prezzo);
+        }
+        else
+        {
+            return 'no telefono found';
+        }
+
     }
 }

@@ -7,20 +7,18 @@ use App\Marca;
 use Storage;
 
 class MarcaController extends Controller
-{
+{ 
     public function __construct()
     {
         //$this->middleware('auth');
     }
 
     public function index(Request $request)
-    {
-        // dd($request);
+    { 
         $records = Marca::all();
         return view('marca.index', ['records' => $records]);
     } 
   
-
     public function create(Request $request)
     {  
         return view('marca.create');
@@ -30,14 +28,13 @@ class MarcaController extends Controller
     public function store(Request $request)
     {  
         // dd($request->hasFile('img'));
-
         $record = new Marca(); 
         $record->title  =$request->title; 
 
         if (request()->hasFile('img')) 
             {  
                 $public_path = 'uploads/marca';
-                $img_name = request('title')->getClientOriginalExtension();
+                $img_name = request('title') . time() . '.' . request('img')->getClientOriginalExtension();
                 request('img')->move($public_path , $img_name); 
             }
         else
@@ -59,37 +56,34 @@ class MarcaController extends Controller
  
     public function update(Request $request, Marca $marca)
     { 
-
         if (request()->hasFile('img')) 
         { 
-
             if($marca->img !==  'default.png')
                 {
                     Storage::delete('marca/'.$marca->img);    
                 }
-            $public_path = 'uploads/marca';
-            $img_name = request('title')->getClientOriginalExtension();
-            request('img')->move($public_path , $img_name); 
 
+            $public_path = 'uploads/marca';
+            $img_name = request('title') . time() . '.' . request('img')->getClientOriginalExtension();
+            request('img')->move($public_path , $img_name); 
             $marca->img  =  $img_name; 
         } 
-
+        
         $marca->update($request->all());    
         return Resp::success($marca);
-    }
-
+    } 
+    
  
     public function destroy(Marca $marca)
-    {
-        $marca->delete();
+    {  
+        if($marca->img !==  'default.png')
+                {
+                    Storage::delete('marca/'.$marca->img);    
+                }
+        $marca->delete(); 
         return Resp::success($marca);
-    }   
+    } 
 }
-
-
-
-
-
     // public function marcastore(Request $request)
     // { 
     //     $data = $request->all(); 
