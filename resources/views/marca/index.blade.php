@@ -11,7 +11,7 @@
             </div>
         </div>
         <div class="block-content">
-            <table class="table table-bordered table-striped table-vcenter js-dataTable-buttons">
+            <table class="table table-bordered table-striped table-vcenter js-dataTable-buttons tabelx">
                 <thead>
                 <a class="btn btn-hero-success btn-rounded center center-block text-white" data-toggle="modal" 
                 	data-target="#modal-block-large" onclick="AddNew()" href="#" style="float: right">
@@ -142,20 +142,28 @@
         }
   
         function addmarca() {
+            var form_data = new FormData();
+            form_data.append('file', $('#img').prop('files')[0]);
+            form_data.append('title', $('#title').val());
+            form_data.append('_token', '{{csrf_token()}}');
+            console.log("form", form_data);
             var title = $('#title').val();
-            var img = $('#img').prop('files')[0]
+            var file = $('#img').prop('files')[0];
+            var img = new FormData();
+            img.append('file', file);
+            img.append('title', title);
+            console.log(img);
 
             $.ajax({
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                 
-                type: 'POST',
+                // headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 url: '{{route('marca.store')}}',
-                data: {
-
-                    'title': title,
-                    'img': img
-                },
+                data: form_data,
+                type: 'POST',
+                contentType: false,
+                processData: false,
                 success: function (data) {
+                    $('#DataTables_Table_0').DataTable().row.add([data.data.id, '-', data.data.title, '']).draw(true).node();
+                    //   console.log(data);
                     $.notify("operazione avvenuta con successo", "success");
 
 
@@ -204,7 +212,7 @@
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 type: 'POST',
-                url: '/marca/' + id,
+                url: '/admin/marca/' + id,
                 data: {
                     _method: "DELETE",
                 },

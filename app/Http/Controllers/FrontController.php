@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Telefono;
-use App\Modello;
+use App\Gb;
 use App\Marca;
+use App\Modello;
+use App\Telefono;
+use Illuminate\Http\Request;
 use Response;
 
 class FrontController extends Controller
@@ -19,7 +20,8 @@ class FrontController extends Controller
     public function index(Request $request)
     {
 
-        $marcas = Marca::all();
+        $marcas = Telefono::has('modello.marca')->with('modello.marca')->get();
+        $marcas = $marcas->pluck('modello.marca')->unique();
 
         //  dd($marcas);
         return view('frontend.index', compact('marcas'));
@@ -31,6 +33,17 @@ class FrontController extends Controller
         $modellos = Modello::all();
 
         return view('tele.create', compact('modellos', 'marcas'));
+    }
+
+    public function getGB($id)
+    {
+
+        $marcas = Telefono::with('gb')->has('gb')->where('modello_id', '=', $id)->get();
+        // dd($marcas);
+        $marcas = $marcas->first()->toArray();
+        $marcas = $marcas['gb'];
+
+        return view('modello.gb', compact('modellos', 'marcas'));
     }
 
     public function store(Request $request)
@@ -46,6 +59,36 @@ class FrontController extends Controller
         $record->save();
 
         return Resp::success($record);
+    }
+
+    public function valuta()
+    {
+
+        $modello = Modello::with('telefonos', 'telefonos.gb')->find($_POST['modello']);
+
+        $modello = $modello->telefonos->last();
+
+        $modello = $modello->toArray();
+        $prezzo  = Gb::find($_POST['gb'])->price;
+        $prezzo  = $prezzo - $modello[$_POST['stato']];
+
+        if ($_POST['scatola'] == "q2") {
+            //   dd($modello[$_POST['scatola']]);
+            $prezzo = $prezzo - $modello[$_POST['scatola']];
+        }
+        if ($_POST['accessori'] == "q3") {
+            $prezzo = $prezzo - $modello[$_POST['accessori']];
+        }
+
+        return Resp::success($prezzo);
+        /*
+        echo '<pre>';
+        var_dump($prezzo);
+        echo '</pre>';
+        echo '<pre>';
+        var_dump($modello);
+        echo '</pre>';
+        dd($_POST);*/
     }
 
     public function show($id)

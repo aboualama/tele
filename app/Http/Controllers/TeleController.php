@@ -40,8 +40,8 @@ class TeleController extends Controller
         $record->modello_id =$request->modello;
         // $record->gb         =$request->gb;
         $record->q1     =$request->q1;
+        $record->q1_1   = $request->q1_1;
         $record->q1_2   = $request->q1_2;
-        $record->q1_3   = $request->q1_3;
         $record->q2     = $request->q2;
         $record->q3     =$request->q3;
         $record->prezzo = 1;

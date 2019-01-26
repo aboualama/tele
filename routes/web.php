@@ -15,7 +15,20 @@
 
 //Route::post('login', 'Auth\AuthController@login');
 //Route::get('login' , 'Auth\AuthController@showLoginForm');
+use Illuminate\Support\Facades\Storage;
+
 Route::get('/', 'FrontController@index');
+Route::post('/valuta', 'FrontController@valuta')->name('valuta');
+Route::get('/getGP/{id}', 'FrontController@getGb')->name('getGb');
+Route::get('/file', function () {
+    /*dd( collect(Storage::files('public/qqqqqqqqqqqqqqqqqqqq'))->map(function($file) {
+         return Storage::url($file);
+     }));*/
+    echo asset(Storage::url('/storage/qqqqqqqqqqqqqqqqqqqq/lxReh4I6jXnfASlZjPrB8bernhOPzgVke5oP6MY1.jpeg'));
+
+    echo(Storage::download('public/qqqqqqqqqqqqqqqqqqqq'));
+    dd(Storage::disk('public')->exists('qqqqqqqqqqqqqqqqqqqq'));
+});
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 

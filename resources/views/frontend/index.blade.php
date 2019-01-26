@@ -29,6 +29,9 @@
     <div id="newContent">
 
     </div>
+    <div id="modelContent">
+
+    </div>
 @endsection
 
 
@@ -42,30 +45,81 @@
         function handleClick(myRadio) {
 
             $.ajax({
-                url: '{{route('modello.show', ['id' => 1])}}',
+                url: '/admin/modello/' + $(myRadio).val(),
                 method: "GET",
                 success: function (resp) {
                     $('#newContent').html(resp);
-                    $('#newContent').focusin();
+                    $('#newContent').focus();
 
                 }
             });
         }
 
-        function handleClickModello() {
+        function handleClickModello(myRadio) {
+            console.log($(myRadio).val());
+            $.ajax({
+                url: '/getGP/' + $(myRadio).val(),
+                method: "GET",
+                success: function (resp) {
+                    $('#modelContent').html(resp);
+                    $('#modelContent').focus();
 
+                }
+            });/*
             $('#domande').css('display', 'block');
             $('#domande').focus()
+            $('#valutaSubito').css('display', 'block');*/
+        }
+
+        function handleClickgb(myRadio) {
+            console.log(myRadio);
+            /*$.ajax({
+                url: '/getGP/'+$(myRadio).val(),
+                method: "GET",
+                success: function (resp) {
+                    $('#modelContent').html(resp);
+                    $('#modelContent').focus();
+
+                }
+            });*/
+            $('#domande').css('display', 'block');
+            $('#domande').focus();
             $('#valutaSubito').css('display', 'block');
         }
 
-        /*     function valutaSubito() {
-                 modello = $('[name="modelloRadio"]:checked').val();
-                 stato = $('[name="modelloRadio"]:checked').val();
-                 scatola = $('[name="modelloRadio"]:checked').val();
-                 accessori
-             }
-     */
+
+        function valutaSubito() {
+            modello = $('[name="modelloRadio"]:checked').val();
+            gb = $('[name="gbRadio"]:checked').val();
+            stato = $('[name="example-rd-custom-inline"]:checked').val();
+            scatola = $('[name="scatola"]:checked').val();
+            accessori = $('[name="accessori"]:checked').val();
+
+            $.ajax({
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                type: 'POST',
+                url: '{{route('valuta')}}',
+                data: {
+
+                    'modello': modello,
+                    'stato': stato,
+                    'scatola': scatola,
+                    'accessori': accessori,
+                    'gb': gb
+
+                },
+                success: function (data) {
+                    console.log(data);
+                    $.notify(data.data, 'success');
+                    // $.notify(data.msg,"success");
+                    $('#DataTables_Table_0').DataTable().row.add([data.data.id, '-', data.data.title, data.data.marca_id, '']).draw(true).node();
+
+                    // notifySuccess(data);
+                }
+            });
+
+        }
+
     </script>
 
 

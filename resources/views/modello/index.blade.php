@@ -21,8 +21,8 @@
                 <tr> 
                     <th class="text-center" width="100px">#</th>
                     <th class="text-center">Image</th>
-                    <th class="text-center">Modello</th> 
-                    <th class="text-center">GB</th>
+                    <th class="text-center">Modello</th>
+                    {{--<th class="text-center">GB</th>--}}
                     <th class="text-center">Marca</th>
                     <th class="text-center" width="50px">Action</th> 
                 </tr>
@@ -35,7 +35,7 @@
                             <img src="{{asset('/uploads/modello')}}/{{$record->img}}" style="width: 50px; height: 50px;">
                         </th>
                         <th class="font-w600 text-xinspire-darker text-center" id ="table_title_{{$record->id}}">{{$record->title}}</th>
-                        <th class="font-w600 text-xinspire-darker text-center" id ="table_gb_{{$record->id}}">{{$record->gb}}</th>
+                        {{--   <th class="font-w600 text-xinspire-darker text-center" id ="table_gb_{{$record->id}}">{{$record->gb}}</th>--}}
                         <th class="font-w600 text-xinspire-darker text-center" id ="table_marca_{{$record->id}}">{{$record->marca->title}}</th>
 
                         <td class="text-center" style="width: 50px">
@@ -150,7 +150,7 @@
   
         function addmodello() {
             var title = $('#title').val();
-            var gb = $('#gb').val();
+            /*  var gb = $('#gb').val();*/
             var marca = $('#marca').val();
             var img = $('#img').val();
             $.ajax({
@@ -160,22 +160,15 @@
                 data: {
 
                     'title': title,
-                    'gb': gb,
+                    /*    'gb': gb,*/
                     'marca': marca,
                     'img': img
                 },
                 success: function (data) {
                     $.notify('Operazione avvenuta con successo', 'success');
                     // $.notify(data.msg,"success");  
-                    t = $('.js-dataTable-buttons').DataTable();  
-                    t.row.add([
-                        '<th class="font-w600 text-xinspire-darker text-center" id ="table_id">' + data.data.id + '</th>',
-                        '<th class="font-w600 text-xinspire-darker text-center" id ="table_title_"' + data.data.id + '>' + data.data.title + '</th>', 
-                        '<th class="font-w600 text-xinspire-darker text-center" id ="table_gb_"' + data.data.id + '>' + data.data.gb + '</th>', 
-                        '<th class="font-w600 text-xinspire-darker text-center" id ="table_marca_"' + data.data.id + '>' + data.data.marca.title + '</th>', 
-                        setActionButtons(data.data.id)
-                    ]).draw();
-                    resetInputs();
+                    $('#DataTables_Table_0').DataTable().row.add([data.data.id, '-', data.data.title, data.data.marca_id, '']).draw(true).node();
+
                     // notifySuccess(data);
                 }
             });
@@ -210,15 +203,15 @@
                 url: '/modello/' + id,
                 data: {
                     _method: "PUT",
-                    title: title, 
-                    gb: gb, 
+                    title: title,
+                    /*     gb: gb, */
                     marca: marca,
                     img: img
                 },
                 success: function (data) {
                     $.notify('Operazione avvenuta con successo', 'success');
-                    $("#table_title_" + id).text(data.data.title); 
-                    $("#table_gb_" + id).text(data.data.gb); 
+                    $("#table_title_" + id).text(data.data.title);
+                    /*  $("#table_gb_" + id).text(data.data.gb); */
                     $("#table_marca_" + id).text(data.data.marca.title); 
                     notifySuccess(data);
                 }
@@ -230,7 +223,7 @@
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 type: 'POST',
-                url: '/modello/' + id,
+                url: '/admin/modello/' + id,
                 data: {
                     _method: "DELETE",
                 },

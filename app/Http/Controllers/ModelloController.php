@@ -55,10 +55,8 @@ class ModelloController extends Controller
 
     public function show($id)
     {
-        // dd($id);
-        $marcas = Modello::all();
+        $marcas = Modello::has('telefonos')->with('telefonos')->where('marca_id', '=', $id)->get();
 
-//dd($marcas);
         return view('modello.show', compact('marcas'));
     }
 
