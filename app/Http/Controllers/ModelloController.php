@@ -11,85 +11,91 @@ class ModelloController extends Controller
 {
     public function index(Request $request)
     {
-        $records = Modello::all();
-
+        $records = Modello::all(); 
         return view('modello.index', ['records' => $records]);
     }
 
+
+
     public function create(Request $request)
     {
-        $marcas = Marca::all();
-
-        // dd($marcas);
+        $marcas = Marca::all(); 
         return view('modello.create', compact('marcas'));
     }
 
+
+
     public function store(Request $request)
     {
-        $record = new Modello();
-
-        $record->title    = $request->title;
-        $record->gb       = 16;
+        $record = new Modello(); 
+        $record->title    = $request->title; 
         $record->marca_id = $request->marca;
 
-        if (request()->hasFile('img')) {
-            $public_path = 'uploads/modello';
-            $img_name    = request('title')->getClientOriginalExtension();
-            request('img')->move($public_path, $img_name);
-        } else {
-            $img_name = 'default.png';
-        }
+            if (request()->hasFile('file')) 
+                { 
+                    $public_path = 'uploads/modello';
+                    $img_name    = request('title') . time() . '.' . request('file')->getClientOriginalExtension();
+                    request('file')->move($public_path, $img_name);
+                } else 
+                {
+                    $img_name = 'default.png';
+                }
 
         $record->img = $img_name;
-        $record->save();
-
+        $record->save(); 
         return Resp::success($record);
     }
 
-    public function edit(Modello $modello)
-    {
-        $marcas = Marca::all();
 
-        return view('modello.edit', compact('modello', 'marcas'));
-    }
 
     public function show($id)
     {
-        $marcas = Modello::has('telefonos')->with('telefonos')->where('marca_id', '=', $id)->get();
-
+        $marcas = Modello::has('telefonos')->with('telefonos')->where('marca_id', '=', $id)->get(); 
         return view('modello.show', compact('marcas'));
     }
 
-    public function update(Request $request, Modello $modello)
+
+
+    public function edit(Modello $modello)
     {
+        $marcas = Marca::all(); 
+        return view('modello.edit', compact('modello', 'marcas'));
+    }
 
-        if (request()->hasFile('img')) {
 
-            if ($modello->img !== 'default.png') {
-                Storage::delete('modello/'.$modello->img);
-            }
+
+    public function update(Request $request, Modello $modello)
+    {  
+        if (request()->hasFile('file')) {
+
+            if ($modello->img !== 'default.png') 
+                {
+                    Storage::delete('modello/'.$modello->img);
+                }
+
             $public_path = 'uploads/modello';
-            $img_name    = request('title')->getClientOriginalExtension();
-            request('img')->move($public_path, $img_name);
+            $img_name    = request('title') . time() . '.' . request('file')->getClientOriginalExtension();
+            request('file')->move($public_path, $img_name);
+
             $modello->img = $img_name;
         }
-
-        $modello->title    = $_POST['title'];
-        $modello->gb       = $_POST['gb'];
+ 
+        $modello->title    = $_POST['title']; 
         $modello->marca_id = $_POST['marca'];
-        $modello->save();
-
+        $modello->save(); 
         return Resp::success($modello);
     }
 
+
+
+
     public function destroy(Modello $modello)
-    {
-
-        if ($modello->img !== 'default.png') {
-            Storage::delete('modello/'.$modello->img);
-        }
-        $modello->delete();
-
+    { 
+        if ($modello->img !== 'default.png') 
+            {
+                Storage::delete('modello/'.$modello->img);
+            }
+        $modello->delete(); 
         return Resp::success($modello);
     }
 }

@@ -33,6 +33,7 @@ class CreateTelefonosTable extends Migration
             $table->decimal('q2_2')->nullable();
             $table->decimal('q2_3')->nullable();
             $table->decimal('q3')->nullable();
+            $table->string('documents')->nullable();
             $table->decimal('prezzo');
             
             $table->timestamps();

@@ -12,3 +12,4 @@
 	<label for="">IMG</label>
 	<input type="file" class="form-control" name="img"  id="img" value="{{$marca->img}}">
 </div>
+ 

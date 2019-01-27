@@ -178,9 +178,9 @@
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 method: "GET",
-                url: '/marca/' + id + '/edit',
+                url: '/admin/marca/' + id + '/edit',
                 success: function (data) {
-                    $.notify("operazione avvenuta con successo", "success");
+                    // $.notify("operazione avvenuta con successo", "success");
                     $('#editContent').html(data);
 
                 }
@@ -189,20 +189,38 @@
         }
  
         function updatemarca() {
-            var title = $('#title').val(); 
+
+            var form_data = new FormData();
+            form_data.append('file', $('#img').prop('files')[0]);
+            form_data.append('title', $('#title').val());
+            form_data.append('_token', '{{csrf_token()}}');
+            form_data.append('_method', 'PUT');
+            // console.log("form", form_data);
+            // var title = $('#title').val();
+            // var file = $('#img').prop('files')[0];
+            // var img = new FormData();
+            // img.append('file', file);
+            // img.append('title', title);
+            // console.log(img);
+ 
+            // var title = $('#title').val(); 
             var id = $('#Id').val();
+
+
             $.ajax({
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                 //  headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        
+                url: '/admin/marca/' + id,
+ 
+                data: form_data,
                 type: 'POST',
-                url: '/marca/' + id,
-                data: {
-                    _method: "PUT",
-                    title: title, 
-                },
+                contentType: false,
+                processData: false, 
                 success: function (data) {
                     $.notify("operazione avvenuta con successo", "success");
                     $("#table_title_" + id).text(data.data.title); 
-                    notifySuccess(data);
+                    $("#table_img_" + id).attr('src', '{{asset('/uploads/marca')}}/' + data.data.img); 
+                    // notifySuccess(data);  
                 }
             });
         }

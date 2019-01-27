@@ -19,8 +19,8 @@
                 <tr> 
                     <th class="text-center" width="100px">#</th>
                     <th class="text-center">Image</th>
-                    <th class="text-center">Modello</th> 
-                    <th class="text-center">GB</th>
+                    <th class="text-center">Modello</th>
+                    
                     <th class="text-center">Marca</th>
                     <th class="text-center" width="50px">Action</th> 
                 </tr>
@@ -33,7 +33,7 @@
                             <img src="<?php echo e(asset('/uploads/modello')); ?>/<?php echo e($record->img); ?>" style="width: 50px; height: 50px;">
                         </th>
                         <th class="font-w600 text-xinspire-darker text-center" id ="table_title_<?php echo e($record->id); ?>"><?php echo e($record->title); ?></th>
-                        <th class="font-w600 text-xinspire-darker text-center" id ="table_gb_<?php echo e($record->id); ?>"><?php echo e($record->gb); ?></th>
+                        
                         <th class="font-w600 text-xinspire-darker text-center" id ="table_marca_<?php echo e($record->id); ?>"><?php echo e($record->marca->title); ?></th>
 
                         <td class="text-center" style="width: 50px">
@@ -138,6 +138,7 @@
                 url: "<?php echo e(route('modello.create')); ?>",
                 method: "GET",
                 success: function (resp) {
+                    //   $.notify('Operazione avvenuta con successo','success');
                     $('#createContent').html(resp);
 
                 }
@@ -145,33 +146,24 @@
 
         }
   
-        function addmodello() {
-            var title = $('#title').val();
-            var gb = $('#gb').val();
-            var marca = $('#marca').val();
-            var img = $('#img').val();
+        function addmodello() { 
+            var form_data = new FormData();
+            form_data.append('file', $('#img').prop('files')[0]);
+            form_data.append('title', $('#title').val());
+            form_data.append('marca', $('#marca').val());
+            form_data.append('_token', '<?php echo e(csrf_token()); ?>');
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 type: 'POST',
                 url: '<?php echo e(route('modello.store')); ?>',
-                data: {
-
-                    'title': title,
-                    'gb': gb,
-                    'marca': marca,
-                    'img': img
-                },
+                data: form_data, 
+                contentType: false,
+                processData: false, 
                 success: function (data) {
+                    $.notify('Operazione avvenuta con successo', 'success');
                     // $.notify(data.msg,"success");  
-                    t = $('.js-dataTable-buttons').DataTable();  
-                    t.row.add([
-                        '<th class="font-w600 text-xinspire-darker text-center" id ="table_id">' + data.data.id + '</th>',
-                        '<th class="font-w600 text-xinspire-darker text-center" id ="table_title_"' + data.data.id + '>' + data.data.title + '</th>', 
-                        '<th class="font-w600 text-xinspire-darker text-center" id ="table_gb_"' + data.data.id + '>' + data.data.gb + '</th>', 
-                        '<th class="font-w600 text-xinspire-darker text-center" id ="table_marca_"' + data.data.id + '>' + data.data.marca.title + '</th>', 
-                        setActionButtons(data.data.id)
-                    ]).draw();
-                    resetInputs();
+                    $('#DataTables_Table_0').DataTable().row.add([data.data.id, '-', data.data.title, data.data.marca_id, '']).draw(true).node();
+
                     // notifySuccess(data);
                 }
             });
@@ -179,13 +171,13 @@
  
  
 
-        function edit(id) {
-
+        function edit(id) { 
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 method: "GET",
-                url: '/modello/' + id + '/edit',
+                url: '/admin/modello/' + id + '/edit',
                 success: function (data) {
+                    // $.notify('Operazione avvenuta con successo', 'success');
                     $('#editContent').html(data);
 
                 }
@@ -193,28 +185,29 @@
 
         }
  
+ 
         function updatemodello() {
-            var title = $('#title').val(); 
-            var gb = $('#gb').val(); 
-            var id = $('#Id').val();
-            var marca = $('#marca').val();
-            var img = $('#img').val();
-            $.ajax({
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+
+            var form_data = new FormData();
+            form_data.append('file', $('#img').prop('files')[0]);
+            form_data.append('title', $('#title').val());
+            form_data.append('marca', $('#marca').val());
+            form_data.append('_token', '<?php echo e(csrf_token()); ?>');
+            form_data.append('_method', 'PUT'); 
+            var id = $('#Id').val(); 
+
+            $.ajax({  
+                url: '/admin/modello/' + id, 
+                data: form_data,
                 type: 'POST',
-                url: '/modello/' + id,
-                data: {
-                    _method: "PUT",
-                    title: title, 
-                    gb: gb, 
-                    marca: marca,
-                    img: img
-                },
-                success: function (data) { 
+                contentType: false,
+                processData: false, 
+                success: function (data) {
+                    $.notify("operazione avvenuta con successo", "success");
                     $("#table_title_" + id).text(data.data.title); 
-                    $("#table_gb_" + id).text(data.data.gb); 
-                    $("#table_marca_" + id).text(data.data.marca.title); 
-                    notifySuccess(data);
+                    $("#table_title_" + id).text(data.data.marca); 
+                    $("#table_img_" + id).attr('src', '<?php echo e(asset('/uploads/modello')); ?>/' + data.data.img); 
+                    // notifySuccess(data);  
                 }
             });
         }
@@ -224,11 +217,12 @@
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 type: 'POST',
-                url: '/modello/' + id,
+                url: '/admin/modello/' + id,
                 data: {
                     _method: "DELETE",
                 },
                 success: function (data) {
+                    $.notify('Operazione avvenuta con successo', 'success');
                     // $.notify(data.msg, 'success');
                     // console.log($(this));
                     el.closest('tr').remove();
@@ -239,4 +233,5 @@
     </script>
 
 <?php $__env->stopSection(); ?>
+
 <?php echo $__env->make('layouts.backend', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

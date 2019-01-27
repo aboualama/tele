@@ -52,16 +52,16 @@ class MarcaController extends Controller
     }
 
     public function update(Request $request, Marca $marca)
-    {
-
-        if (request()->hasFile('img')) {
+    {  
+        if (request()->hasFile('file')) {
 
             if ($marca->img !== 'default.png') {
                 Storage::delete('marca/'.$marca->img);
             }
+
             $public_path = 'uploads/marca';
-            $img_name    = request('title')->getClientOriginalExtension();
-            request('img')->move($public_path, $img_name);
+            $img_name    = request('title') . time() . '.' . request('file')->getClientOriginalExtension();
+            request('file')->move($public_path, $img_name);
 
             $marca->img = $img_name;
         }
@@ -71,10 +71,13 @@ class MarcaController extends Controller
         return Resp::success($marca);
     }
 
+
     public function destroy(Marca $marca)
     {
+        if ($marca->img !== 'default.png') {
+            Storage::delete('marca/'.$marca->img);
+        } 
         $marca->delete();
-
         return Resp::success($marca);
     }
 }

@@ -34,17 +34,16 @@ class TeleController extends Controller
 
     public function store(Request $request)
     {
-        $record = new Telefono();
-        //  dd($request->all());
-
+        $record = new Telefono(); 
         $record->modello_id =$request->modello;
         // $record->gb         =$request->gb;
-        $record->q1     =$request->q1;
-        $record->q1_1   = $request->q1_1;
-        $record->q1_2   = $request->q1_2;
-        $record->q2     = $request->q2;
-        $record->q3     =$request->q3;
-        $record->prezzo = 1;
+        $record->q1        = $request->q1;
+        $record->q1_1      = $request->q1_1;
+        $record->q1_2      = $request->q1_2;
+        $record->q2        = $request->q2;
+        $record->q3        = $request->q3;
+        $record->documents = $request->documents;
+        // $record->prezzo = 1;
         $record->save();
         foreach ($_POST['gb'] as $gb) {
             $newGb              = new Gb();
@@ -67,60 +66,59 @@ class TeleController extends Controller
 
     public function edit(Telefono $telefono)
     {
-        $marcas   = Marca::all();
-        $modellos = Modello::all();
-
-        return view('tele.edit' , compact('telefono', 'modellos', 'marcas'));
+        $marcas = Marca::all(); 
+        $gbs    = Gb::where('telefono_id' , $telefono->id)->get(); 
+        return view('tele.edit' , compact('telefono', 'gbs', 'marcas'));
     }
 
     public function update(Request $request, Telefono $telefono)
-    {
+    {  
+        $telefono->modello_id   = $request->modello;
+        $telefono->q1           = $request->q1;
+        $telefono->q1_1         = $request->q1_1;
+        $telefono->q1_2         = $request->q1_2;
+        $telefono->q2           = $request->q2;
+        $telefono->q3           = $request->q3;
+        $telefono->documents    = $request->documents;
+        $telefono->update();
 
-        $telefono->modello_id =$request->modello;
-        $telefono->gb         =$request->gb;
-        $telefono->q1         =$request->q1;
-        $telefono->q2         =$request->q2;
-        $telefono->q3         =$request->q3;
-        $telefono->prezzo     =$request->prezzo;
-        $telefono->save();
+        Gb::where('telefono_id', $telefono->id)->delete(); 
+
+        foreach ($_POST['gb'] as $gb) {
+            $newGb              = new Gb();
+            $newGb->gb          = $gb['gb'];
+            $newGb->price       = $gb['prezzo'];
+            $newGb->telefono_id = $telefono->id;
+            $newGb->save();
+        } 
 
         return Resp::success($telefono);
     }
 
     public function destroy(Telefono $telefono)
     {
-        $telefono->delete();
-
+        Gb::where('telefono_id', $telefono->id)->delete(); 
+        $telefono->delete(); 
         return Resp::success($telefono);
     }
 
     public function getmodello()
     {
-        $modello = Modello::where('marca_id', $_POST['marca'])->get();
-
+        $modello = Modello::where('marca_id', $_POST['marca'])->get(); 
         return Response::json($modello);
     }
-
-    public function getmodellogb()
-    {
-        $modello = Modello::where('id', $_POST['modello'])->get();
-
-        return Response::json($modello);
-    }
+ 
 
     public function search(Request $request)
     {
-        $marcas = Marca::all();
-
+        $marcas = Marca::all(); 
         return view('tele.telefono' , compact('marcas'));
     }
 
     public function telefono(Request $request)
-    {
-
+    { 
         $record = Telefono::find($request->modello);
-        dd($record);
-
+        dd($record); 
         $q1 = ($request->q1 === 'No') ? 0 : $record->q1;
         $q2 = ($request->q2 === 'No') ? 0 : $record->q2;
         $q3 = ($request->q3 === 'No') ? 0 : $record->q3;

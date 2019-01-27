@@ -148,22 +148,19 @@
 
         }
   
-        function addmodello() {
-            var title = $('#title').val();
-            /*  var gb = $('#gb').val();*/
-            var marca = $('#marca').val();
-            var img = $('#img').val();
+        function addmodello() { 
+            var form_data = new FormData();
+            form_data.append('file', $('#img').prop('files')[0]);
+            form_data.append('title', $('#title').val());
+            form_data.append('marca', $('#marca').val());
+            form_data.append('_token', '{{csrf_token()}}');
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 type: 'POST',
                 url: '{{route('modello.store')}}',
-                data: {
-
-                    'title': title,
-                    /*    'gb': gb,*/
-                    'marca': marca,
-                    'img': img
-                },
+                data: form_data, 
+                contentType: false,
+                processData: false, 
                 success: function (data) {
                     $.notify('Operazione avvenuta con successo', 'success');
                     // $.notify(data.msg,"success");  
@@ -176,14 +173,13 @@
  
  
 
-        function edit(id) {
-
+        function edit(id) { 
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 method: "GET",
-                url: '/modello/' + id + '/edit',
+                url: '/admin/modello/' + id + '/edit',
                 success: function (data) {
-                    $.notify('Operazione avvenuta con successo', 'success');
+                    // $.notify('Operazione avvenuta con successo', 'success');
                     $('#editContent').html(data);
 
                 }
@@ -191,29 +187,29 @@
 
         }
  
+ 
         function updatemodello() {
-            var title = $('#title').val(); 
-            var gb = $('#gb').val(); 
-            var id = $('#Id').val();
-            var marca = $('#marca').val();
-            var img = $('#img').val();
-            $.ajax({
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+
+            var form_data = new FormData();
+            form_data.append('file', $('#img').prop('files')[0]);
+            form_data.append('title', $('#title').val());
+            form_data.append('marca', $('#marca').val());
+            form_data.append('_token', '{{csrf_token()}}');
+            form_data.append('_method', 'PUT'); 
+            var id = $('#Id').val(); 
+
+            $.ajax({  
+                url: '/admin/modello/' + id, 
+                data: form_data,
                 type: 'POST',
-                url: '/modello/' + id,
-                data: {
-                    _method: "PUT",
-                    title: title,
-                    /*     gb: gb, */
-                    marca: marca,
-                    img: img
-                },
+                contentType: false,
+                processData: false, 
                 success: function (data) {
-                    $.notify('Operazione avvenuta con successo', 'success');
-                    $("#table_title_" + id).text(data.data.title);
-                    /*  $("#table_gb_" + id).text(data.data.gb); */
-                    $("#table_marca_" + id).text(data.data.marca.title); 
-                    notifySuccess(data);
+                    $.notify("operazione avvenuta con successo", "success");
+                    $("#table_title_" + id).text(data.data.title); 
+                    $("#table_title_" + id).text(data.data.marca); 
+                    $("#table_img_" + id).attr('src', '{{asset('/uploads/modello')}}/' + data.data.img); 
+                    // notifySuccess(data);  
                 }
             });
         }

@@ -4,9 +4,7 @@
 
     <div class="col-12 "> 
  		<label for="">Title</label>
-        	<input type="text" class="form-control" placeholder="" id="title" name="title" value="<?php echo e($modello->title); ?>">
-		<label for="">GB</label>
-        	<input type="text" class="form-control" placeholder="" id="gb" name="gb" value="<?php echo e($modello->gb); ?>"> 
+        	<input type="text" class="form-control" placeholder="" id="title" name="title" value="<?php echo e($modello->title); ?>"> 
     </div>  
 </div>  
 <div class="form-group form-row">

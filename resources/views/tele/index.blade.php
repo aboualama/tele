@@ -31,7 +31,7 @@
                     <th class="text-center">Q1</th>
                     <th class="text-center">Q2</th>
                     <th class="text-center">Q3</th>
-                    <th class="text-center">prezzo</th>
+                    {{-- <th class="text-center">prezzo</th> --}}
                     <th class="text-center" width="50px">Action</th>
                 </tr>
                 </thead>
@@ -46,16 +46,16 @@
                             {{$record->modello->title}}
                         </th>
                         <th class="font-w600 text-xinspire-darker text-center"
-                            id="table_gb_{{$record->id}}">{{$record->gb}}</th>
-
+                            id="table_gb_{{$record->id}}">{{$record->gb[0]->gb}}</th> 
+                            
                         <th class="font-w600 text-xinspire-darker text-center"
                             id="table_q1_{{$record->id}}">{{$record->q1}}</th>
                         <th class="font-w600 text-xinspire-darker text-center"
                             id="table_q2_{{$record->id}}">{{$record->q2}}</th>
                         <th class="font-w600 text-xinspire-darker text-center"
                             id="table_q3_{{$record->id}}">{{$record->q3}}</th>
-                        <th class="font-w600 text-xinspire-darker text-center"
-                            id="table_prezzo_{{$record->id}}">{{$record->prezzo}}</th>
+                        {{-- <th class="font-w600 text-xinspire-darker text-center"
+                            id="table_prezzo_{{$record->id}}">{{$record->prezzo}}</th> --}}
 
                         <td class="text-center" style="width: 50px">
                             <div class="btn-group">
@@ -223,7 +223,8 @@
             var q1_2 = $('#q1_2').val();
             var q2 = $('#q2').val();
             var q3 = $('#q3').val();
-            var prezzo = $('#prezzo').val();
+            var documents = $('#documents').val();
+            // var prezzo = $('#prezzo').val();
             $('.newGb').each(function (i, obj) {
 
                 Gb = $('.GBValue', this).val();
@@ -256,7 +257,8 @@
                     'q1_2': q1_2,
                     'q2': q2,
                     'q3': q3,
-                    'prezzo': prezzo
+                    'documents': documents
+                    // 'prezzo': prezzo
                 },
                 success: function (data) {
                     $.notify(data.msg, "success");
@@ -284,7 +286,7 @@
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 method: "GET",
-                url: '/telefono/' + id + '/edit',
+                url: '/admin/telefono/' + id + '/edit',
                 success: function (data) {
                     $('#editContent').html(data);
 
@@ -294,30 +296,49 @@
         }
 
         function updatetelefono() {
+
             var modello = $('#modello').val();
-            var gb = $('#gb').val();
             var q1 = $('#q1').val();
             var q1_1 = $('#q1_1').val();
             var q1_2 = $('#q1_2').val();
             var q2 = $('#q2').val();
-            var q3 = $('#q3').val();
-            var prezzo = $('#prezzo').val();
-            var id = $('#Id').val();
-            $.ajax({
+            var q3 = $('#q3').val(); 
+            var id = $('#Id').val(); 
+            var documents = $('#documents').val();
+          
+            var map = {}; 
+            $('.newGb').each(function (i, obj) { 
+                Gb = $('.GBValue', this).val();
+                if (!Gb) {
+                    $('.GBValue', this).focus();
+                    $('.GBValue', this).notify('campo obligatorio', 'error');
+                }
+                prezzo = $('.GBPrice', this).val();
+                if (!prezzo) {
+                    $('.GBPrice', this).focus();
+                    $('.GBPrice', this).notify('campo obligatorio', 'error');
+                }
+                map[i] = {
+                    gb: Gb,
+                    prezzo: prezzo
+                } 
+
+            });
+            $.ajax({ 
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 type: 'POST',
-                url: '/telefono/' + id,
+                url: '/admin/telefono/' + id,
                 data: {
                     _method: "PUT",
                     'modello': modello,
-                    'gb': gb,
+                    'gb': map,
                     'q1': q1,
-                    'q1': q1_1,
-                    'q1': q1_2,
+                    'q1_1': q1_1,
+                    'q1_2': q1_2,
                     'q2': q2,
-                    'q3': q3,
-                    'prezzo': prezzo
-                },
+                    'q3': q3, 
+                    'documents': documents
+                }, 
                 success: function (data) {
                     $("#table_marca_" + id).text(data.data.marca);
                     $("#table_modello_" + id).text(data.data.modello);
@@ -327,9 +348,13 @@
                     $("#table_q3_" + id).text(data.data.q3);
                     $("#table_prezzo_" + id).text(data.data.prezzo);
                     // notifySuccess(data);
+                    $.notify(data.msg, "success");
                 }
             });
         }
+
+
+
 
 
         function destroy(id, el) {
@@ -340,10 +365,10 @@
                 data: {
                     _method: "DELETE",
                 },
-                success: function (data, el) {
+                success: function (data) {
                     $.notify(data.msg, 'success');
                     // console.log($(this));
-                    $(el).closest('tr').remove();
+                    el.closest('tr').remove();
                 }
 
             });

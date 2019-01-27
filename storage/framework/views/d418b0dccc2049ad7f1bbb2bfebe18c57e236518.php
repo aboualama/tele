@@ -9,7 +9,7 @@
             </div>
         </div>
         <div class="block-content">
-            <table class="table table-bordered table-striped table-vcenter js-dataTable-buttons">
+            <table class="table table-bordered table-striped table-vcenter js-dataTable-buttons tabelx">
                 <thead>
                 <a class="btn btn-hero-success btn-rounded center center-block text-white" data-toggle="modal" 
                 	data-target="#modal-block-large" onclick="AddNew()" href="#" style="float: right">
@@ -140,30 +140,31 @@
         }
   
         function addmarca() {
+            var form_data = new FormData();
+            form_data.append('file', $('#img').prop('files')[0]);
+            form_data.append('title', $('#title').val());
+            form_data.append('_token', '<?php echo e(csrf_token()); ?>');
+            console.log("form", form_data);
             var title = $('#title').val();
-            var img = $('#img').val();
-            $.ajax({
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                 
-                type: 'POST',
-                url: '<?php echo e(route('marca.store')); ?>',
-                data: {
+            var file = $('#img').prop('files')[0];
+            var img = new FormData();
+            img.append('file', file);
+            img.append('title', title);
+            console.log(img);
 
-                    'title': title,
-                    'img': img
-                },
+            $.ajax({
+                // headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                url: '<?php echo e(route('marca.store')); ?>',
+                data: form_data,
+                type: 'POST',
+                contentType: false,
+                processData: false,
                 success: function (data) {
-                    // $.notify(data.msg,"success");    
-                    t.row.add([
-                        '<th class="font-w600 text-xinspire-darker text-center" id ="table_id">' + data.data.id + '</th>\n' +
-                        '<th class="font-w600 text-xinspire-darker text-center" id ="table_img">\n' + 
-                        '<img src="<?php echo e(asset('/uploads/marca')); ?>/' + data.data.img + '" class="img-responsive">\n' +
-                        '</th>\n' +
-                        '<th class="font-w600 text-xinspire-darker text-center" id ="table_title_"' + data.data.id + '>' + data.data.title + '</th>\n' +
-                        setActionButtons(data.data.id)
-                    ]).draw();
-                    resetInputs();
-                    notifySuccess(data);
+                    $('#DataTables_Table_0').DataTable().row.add([data.data.id, '-', data.data.title, '']).draw(true).node();
+                    //   console.log(data);
+                    $.notify("operazione avvenuta con successo", "success");
+
+
                 }
             });
         }
@@ -175,8 +176,9 @@
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 method: "GET",
-                url: '/marca/' + id + '/edit',
+                url: '/admin/marca/' + id + '/edit',
                 success: function (data) {
+                    // $.notify("operazione avvenuta con successo", "success");
                     $('#editContent').html(data);
 
                 }
@@ -185,19 +187,38 @@
         }
  
         function updatemarca() {
-            var title = $('#title').val(); 
+
+            var form_data = new FormData();
+            form_data.append('file', $('#img').prop('files')[0]);
+            form_data.append('title', $('#title').val());
+            form_data.append('_token', '<?php echo e(csrf_token()); ?>');
+            form_data.append('_method', 'PUT');
+            // console.log("form", form_data);
+            // var title = $('#title').val();
+            // var file = $('#img').prop('files')[0];
+            // var img = new FormData();
+            // img.append('file', file);
+            // img.append('title', title);
+            // console.log(img);
+ 
+            // var title = $('#title').val(); 
             var id = $('#Id').val();
+
+
             $.ajax({
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                 //  headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        
+                url: '/admin/marca/' + id,
+ 
+                data: form_data,
                 type: 'POST',
-                url: '/marca/' + id,
-                data: {
-                    _method: "PUT",
-                    title: title, 
-                },
-                success: function (data) { 
+                contentType: false,
+                processData: false, 
+                success: function (data) {
+                    $.notify("operazione avvenuta con successo", "success");
                     $("#table_title_" + id).text(data.data.title); 
-                    notifySuccess(data);
+                    $("#table_img_" + id).attr('src', '<?php echo e(asset('/uploads/marca')); ?>/' + data.data.img); 
+                    // notifySuccess(data);  
                 }
             });
         }
@@ -207,11 +228,12 @@
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 type: 'POST',
-                url: '/marca/' + id,
+                url: '/admin/marca/' + id,
                 data: {
                     _method: "DELETE",
                 },
                 success: function (data) {
+                    $.notify("operazione avvenuta con successo", "success");
                     // $.notify(data.msg, 'success');
                     console.log($(this));
                     el.closest('tr').remove();
@@ -222,4 +244,5 @@
     </script>
 
 <?php $__env->stopSection(); ?>
+
 <?php echo $__env->make('layouts.backend', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

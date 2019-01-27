@@ -2,7 +2,7 @@
     <div class="col-5">
         <label for="">Marca</label>
         <select class="js-select2 form-control" id="marca" name="marca">
-            <option value=""></option>
+            <option value="">Seleziona Marca..</option>
             @foreach($marcas as $marca)
                 <option value="{{$marca->id}}">{{$marca->title}}</option>
             @endforeach
@@ -12,24 +12,15 @@
     <div class="col-5">
         <label for="">Modello</label>
         <select class="js-select2 form-control" id="modello" name="modello">
-            <option value=""></option>
-            @foreach($modellos as $modello)
-
-                <option value="{{$modello->id}}">{{$modello->title}}</option>
-            @endforeach
+            <option value="">......</option>
+           {{--      @foreach($modellos as $modello) 
+                    <option value="{{$modello->id}}">{{$modello->title}}</option>
+                @endforeach --}}
         </select>
-    </div>
-
-    {{-- <div class="col-2">
-         <label for="">GB</label>
-         <select class="js-select2 form-control" id="gb">
-             --}}{{-- @foreach($modellos as $modello) --}}{{--
-             <option value=""></option>
-             --}}{{-- <option value="{{$modello->id}}">{{$modello->title}}</option> --}}{{--
-             --}}{{-- @endforeach --}}{{--
-         </select>
-     </div>--}}
+    </div> 
 </div>
+
+
 
 <div class="form-group " id="gbBlock">
     <div class="newGb row">
@@ -44,6 +35,7 @@
         <div class="col-2"><a class="btn btn-hero-sm" onclick="removeGb(this)"> x </a></div>
     </div>
 </div>
+
 <script>
     function addNewGB() {
         html = "<div class=\"newGb row\" >\n" +
@@ -97,6 +89,11 @@
 </div>
 
 
+    <div >
+        <label for="">Documents</label>
+        <input class="form-control" type="text" id="documents" name="documents">
+    </div>
+
 <script>
 
 
@@ -107,7 +104,7 @@
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 type: 'POST',
-                url: '/getmodello',
+                url: '/admin/getmodello',
                 data: {
                     'marca': $(this).val(),
                 },
@@ -123,26 +120,6 @@
         }
     });
 
-
-    $('#modello').change(function () {
-        if ($(this).val() == 'null') {
-            return false;
-        } else {
-            $.ajax({
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                type: 'POST',
-                url: '/getmodellogb',
-                data: {
-                    'modello': $(this).val(),
-                },
-                success: function (data) {
-                    $('#gb').empty();
-                    $.each(data, function (key, val) {
-                        $('#gb').append('<option value=' + val.gb + '>' + val.gb + '</option>');
-                    });
-                }
-            });
-        }
-    });
+ 
 
 </script>

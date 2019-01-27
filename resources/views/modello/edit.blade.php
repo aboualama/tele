@@ -4,9 +4,7 @@
 
     <div class="col-12 "> 
  		<label for="">Title</label>
-        	<input type="text" class="form-control" placeholder="" id="title" name="title" value="{{$modello->title}}">
-		<label for="">GB</label>
-        	<input type="text" class="form-control" placeholder="" id="gb" name="gb" value="{{$modello->gb}}"> 
+        	<input type="text" class="form-control" placeholder="" id="title" name="title" value="{{$modello->title}}"> 
     </div>  
 </div>  
 <div class="form-group form-row">

@@ -18,7 +18,7 @@ class CreateGpTable extends Migration
             $table->decimal('gb');
             $table->decimal('price');
             $table->unsignedInteger('telefono_id');
-            $table->foreign('telefono_id')->references('id')->on('telefonos');
+            $table->foreign('telefono_id')->references('id')->on('telefonos')->onDelete('cascade');
             $table->timestamps();
         });
     }
