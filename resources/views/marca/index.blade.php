@@ -146,13 +146,11 @@
             form_data.append('file', $('#img').prop('files')[0]);
             form_data.append('title', $('#title').val());
             form_data.append('_token', '{{csrf_token()}}');
-            console.log("form", form_data);
+
             var title = $('#title').val();
             var file = $('#img').prop('files')[0];
             var img = new FormData();
-            img.append('file', file);
-            img.append('title', title);
-            console.log(img);
+
 
             $.ajax({
                 // headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},

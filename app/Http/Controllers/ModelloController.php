@@ -27,9 +27,10 @@ class ModelloController extends Controller
 
     public function store(Request $request)
     {
-        $record = new Modello(); 
+        $record           = new Modello();
         $record->title    = $request->title; 
         $record->marca_id = $request->marca;
+        $record->gb       = 0;
 
             if (request()->hasFile('file')) 
                 { 

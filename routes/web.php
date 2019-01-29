@@ -18,6 +18,7 @@
 use Illuminate\Support\Facades\Storage;
 
 Route::get('/', 'FrontController@index');
+Route::get('/valutazione', 'FrontController@index');
 Route::post('/valuta', 'FrontController@valuta')->name('valuta');
 Route::get('/getGP/{id}', 'FrontController@getGb')->name('getGb');
 Route::get('/file', function () {
@@ -32,7 +33,7 @@ Route::get('/file', function () {
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
-    Route::get('', 'MarcaController@index');
+    Route::get('/', 'MarcaController@index');
     Route::get('login', 'Auth\AuthController@login');
     Route::view('dashboard', 'dashboard');
     Route::view('examples/plugin', 'examples.plugin');

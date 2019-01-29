@@ -1,18 +1,26 @@
-@extends('layouts.backend')
+@extends('layouts.login')
 
 @section('content')
+    <style>
 
-    <div class="block-content">
-        <div class="row push">
-            <div class="col-md-12">
-                <div class="form-group row items-push mb-0">
+    </style>
+    <div class="block block-rounded block-bordered text-center">
+        <div class="block-content">
+            <h2> Quale dispositivo vuoi vendere?</h2>
+            <div class="row push no-gutters">
+
+                <div class="form-group row items-push justify-content-center no-gutters">
                     @foreach($marcas as $marca)
-                        <div class="col-md-4" data-toggle="appear" data-class="animated fadeInDown" data-timeout="300">
+                        <div class="col-6 col-sm-4 no-gutters" data-toggle="appear" data-class="animated fadeInDown"
+                             data-timeout="300">
                             <div class="custom-control custom-block custom-control-primary mb-1">
+
                                 <input type="radio" class="custom-control-input" id="marca_{{$marca->id}}"
                                        name="marcaRadio" onclick="handleClick(this)" value="{{$marca->id}}">
-                                <label class="custom-control-label" for="marca_{{$marca->id}}">
-                                                    <span class="d-block font-w400 text-center my-3">
+                                <label class="custom-control-label" for="marca_{{$marca->id}}"
+                                       style="     padding:0px !important; background: white !important;border: 2px solid #fff;">
+                                    <img src="{{asset('/uploads/marca')}}/{{$marca->img}}" class="img-fluid">
+                                    <span class="d-block font-w400 text-center my-3">
                                                         <span class="font-size-h4 font-w600">{{$marca->title}}</span>
                                                     </span>
                                 </label>
@@ -24,13 +32,15 @@
                     @endforeach
                 </div>
             </div>
+
         </div>
-    </div>
-    <div id="newContent">
 
-    </div>
-    <div id="modelContent">
+        <div id="newContent">
 
+        </div>
+        <div id="modelContent">
+
+        </div>
     </div>
 @endsection
 
@@ -49,7 +59,9 @@
                 method: "GET",
                 success: function (resp) {
                     $('#newContent').html(resp);
-                    $('#newContent').focus();
+                    $('html, body').animate({
+                        scrollTop: $("div#newContent").offset().top
+                    }, 1000)
 
                 }
             });
@@ -61,8 +73,11 @@
                 url: '/getGP/' + $(myRadio).val(),
                 method: "GET",
                 success: function (resp) {
+
                     $('#modelContent').html(resp);
-                    $('#modelContent').focus();
+                    $('html, body').animate({
+                        scrollTop: $("div#modelContent").offset().top
+                    }, 1000)
 
                 }
             });/*
@@ -82,17 +97,57 @@
 
                 }
             });*/
-            $('#domande').css('display', 'block');
-            $('#domande').focus();
-            $('#valutaSubito').css('display', 'block');
+            $('#q1').css('display', 'block');
+            $('html, body').animate({
+                scrollTop: $("div#q1").offset().top
+            }, 1000)
+
         }
 
 
-        function valutaSubito() {
+        function handleClickQ1(myRadio) {
+
+            $('#q2').css('display', 'block');
+            $('html, body').animate({
+                scrollTop: $("div#q2").offset().top
+            }, 1000)
+            //  $('#valutaSubito').css('display', 'block');
+        }
+
+        function handleClickQ2(myRadio) {
+
+            $('#q3').css('display', 'block');
+            $('html, body').animate({
+                scrollTop: $("div#q3").offset().top
+            }, 1000)
+            //  $('#valutaSubito').css('display', 'block');
+        }
+
+        function handleClickQ3(myRadio) {
+
+            $('#q4').css('display', 'block');
+            $('html, body').animate({
+                scrollTop: $("div#q4").offset().top
+            }, 1000)
+            // $('#valutaSubito').css('display', 'block');
+        }
+
+        function handleClickQ4(myRadio) {
+
+            $('#domande').css('display', 'block');
+            $('html, body').animate({
+                scrollTop: $("div#domande").offset().top
+            }, 1000)
+            // $('#valutaSubito').css('display', 'block');
+        }
+
+
+        function valutaSubito1() {
             modello = $('[name="modelloRadio"]:checked').val();
             gb = $('[name="gbRadio"]:checked').val();
             stato = $('[name="example-rd-custom-inline"]:checked').val();
             scatola = $('[name="scatola"]:checked').val();
+            documenti = $('[name="documenti"]:checked').val();
             accessori = $('[name="accessori"]:checked').val();
 
             $.ajax({
@@ -104,6 +159,7 @@
                     'modello': modello,
                     'stato': stato,
                     'scatola': scatola,
+                    'documenti': documenti,
                     'accessori': accessori,
                     'gb': gb
 
@@ -115,10 +171,20 @@
                     $('#DataTables_Table_0').DataTable().row.add([data.data.id, '-', data.data.title, data.data.marca_id, '']).draw(true).node();
 
                     // notifySuccess(data);
+                    parent.tuttoOk();
+                    console.log($('html, body'));
                 }
             });
 
+
         }
+
+        jQuery(document).ready(function ($) {
+            // now you can use jQuery code here with $ shortcut formatting
+            // this will execute after the document is fully loaded
+            // anything that interacts with your html should go here
+            document.domain = "elettroshock.net";
+        });
 
     </script>
 

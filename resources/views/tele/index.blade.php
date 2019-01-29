@@ -27,10 +27,10 @@
                     <th class="text-center" width="100px">#</th>
                     <th class="text-center">Marca</th>
                     <th class="text-center">Modello</th>
-                    <th class="text-center">GB</th>
+                    {{--<th class="text-center">GB</th>
                     <th class="text-center">Q1</th>
                     <th class="text-center">Q2</th>
-                    <th class="text-center">Q3</th>
+                    <th class="text-center">Q3</th>--}}
                     {{-- <th class="text-center">prezzo</th> --}}
                     <th class="text-center" width="50px">Action</th>
                 </tr>
@@ -45,7 +45,7 @@
                         <th class="font-w600 text-xinspire-darker text-center" id="table_modello_{{$record->id}}">
                             {{$record->modello->title}}
                         </th>
-                        <th class="font-w600 text-xinspire-darker text-center"
+                        {{--<th class="font-w600 text-xinspire-darker text-center"
                             id="table_gb_{{$record->id}}">{{$record->gb[0]->gb}}</th> 
                             
                         <th class="font-w600 text-xinspire-darker text-center"
@@ -53,7 +53,7 @@
                         <th class="font-w600 text-xinspire-darker text-center"
                             id="table_q2_{{$record->id}}">{{$record->q2}}</th>
                         <th class="font-w600 text-xinspire-darker text-center"
-                            id="table_q3_{{$record->id}}">{{$record->q3}}</th>
+                            id="table_q3_{{$record->id}}">{{$record->q3}}</th>--}}
                         {{-- <th class="font-w600 text-xinspire-darker text-center"
                             id="table_prezzo_{{$record->id}}">{{$record->prezzo}}</th> --}}
 
@@ -75,7 +75,7 @@
                 </tbody>
             </table>
         </div>
-        <div>{{ $records->links() }}</div>
+        {{-- <div>{{ $records->links() }}</div>--}}
     </div>
 
 
@@ -261,18 +261,19 @@
                     // 'prezzo': prezzo
                 },
                 success: function (data) {
+                    console.log(data.data);
                     $.notify(data.msg, "success");
                     t = $('.js-dataTable-buttons').DataTable();
                     t.row.add([
                         '<th class="font-w600 text-xinspire-darker text-center" id ="table_id">' + data.data.id + '</th>',
                         '<th class="font-w600 text-xinspire-darker text-center" id ="table_marca_"' + data.data.id + '>' + data.data.modello.marca.title + '</th>',
                         '<th class="font-w600 text-xinspire-darker text-center" id ="table_modello_"' + data.data.id + '>' + data.data.modello.title + '</th>',
-                        '<th class="font-w600 text-xinspire-darker text-center" id ="table_gb_"' + data.data.id + '>' + data.data.gb + '</th>',
-                        '<th class="font-w600 text-xinspire-darker text-center" id ="table_q1_"' + data.data.id + '>' + data.data.q1 + '</th>',
-                        '<th class="font-w600 text-xinspire-darker text-center" id ="table_q2_"' + data.data.id + '>' + data.data.q2 + '</th>',
-                        '<th class="font-w600 text-xinspire-darker text-center" id ="table_q3_"' + data.data.id + '>' + data.data.q3 + '</th>',
-                        '<th class="font-w600 text-xinspire-darker text-center" id ="table_prezzo_"' + data.data.id + '>' + data.data.prezzo + '</th>',
-                        setActionButtons(data.data.id)
+                        /* '<th class="font-w600 text-xinspire-darker text-center" id ="table_gb_"' + data.data.id + '>' + data.data.gb + '</th>',
+                         '<th class="font-w600 text-xinspire-darker text-center" id ="table_q1_"' + data.data.id + '>' + data.data.q1 + '</th>',
+                         '<th class="font-w600 text-xinspire-darker text-center" id ="table_q2_"' + data.data.id + '>' + data.data.q2 + '</th>',
+                         '<th class="font-w600 text-xinspire-darker text-center" id ="table_q3_"' + data.data.id + '>' + data.data.q3 + '</th>',
+                         '<th class="font-w600 text-xinspire-darker text-center" id ="table_prezzo_"' + data.data.id + '>' + data.data.prezzo + '</th>',
+                        */ setActionButtons(data.data.id)
                     ]).draw();
                     resetInputs();
                     // notifySuccess(data);

@@ -23,7 +23,7 @@ class FrontController extends Controller
         $marcas = Telefono::has('modello.marca')->with('modello.marca')->get();
         $marcas = $marcas->pluck('modello.marca')->unique();
 
-        //  dd($marcas);
+
         return view('frontend.index', compact('marcas'));
     }
 
@@ -67,7 +67,7 @@ class FrontController extends Controller
         $modello = Modello::with('telefonos', 'telefonos.gb')->find($_POST['modello']);
 
         $modello = $modello->telefonos->last();
-
+        //  dd($modello);
         $modello = $modello->toArray();
         $prezzo  = Gb::find($_POST['gb'])->price;
         $prezzo  = $prezzo - $modello[$_POST['stato']];
@@ -78,6 +78,9 @@ class FrontController extends Controller
         }
         if ($_POST['accessori'] == "q3") {
             $prezzo = $prezzo - $modello[$_POST['accessori']];
+        }
+        if ($_POST['documenti'] == "q4") {
+            $prezzo = $prezzo - $modello['documents'];
         }
 
         return Resp::success($prezzo);

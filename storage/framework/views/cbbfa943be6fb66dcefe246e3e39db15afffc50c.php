@@ -91,6 +91,7 @@
             gb = $('[name="gbRadio"]:checked').val();
             stato = $('[name="example-rd-custom-inline"]:checked').val();
             scatola = $('[name="scatola"]:checked').val();
+            documenti = $('[name="documenti"]:checked').val();
             accessori = $('[name="accessori"]:checked').val();
 
             $.ajax({
@@ -102,6 +103,7 @@
                     'modello': modello,
                     'stato': stato,
                     'scatola': scatola,
+                    'documenti': documenti,
                     'accessori': accessori,
                     'gb': gb
 

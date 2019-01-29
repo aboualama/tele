@@ -32,15 +32,15 @@ class MarcaController extends Controller
         $record->title = $request->title;
 
         if (request()->hasFile('file')) {
-            $uploadedFile = $request->file('file');
-            $public_path  = 'uploads/marca';
 
-            Storage::disk('public')->put($record->title, $uploadedFile);
+            $public_path = 'uploads/marca';
+            $img_name    = request('title').time().'.'.request('file')->getClientOriginalExtension();
+            request('file')->move($public_path, $img_name);
         } else {
             $img_name = 'default.png';
         }
-
-        $record->img = $record->title;
+        $record->img = $img_name;
+        //$record->img = $record->title;
         $record->save();
 
         return Resp::success($record);

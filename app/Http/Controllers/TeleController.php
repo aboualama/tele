@@ -19,8 +19,10 @@ class TeleController extends Controller
 
     public function index(Request $request)
     {
-        $records = Telefono::paginate(10);
 
+        $records = Telefono::all();
+
+        // dd($records->toArray());
         return view('tele.index', ['records' => $records]);
     }
 
@@ -43,7 +45,7 @@ class TeleController extends Controller
         $record->q2        = $request->q2;
         $record->q3        = $request->q3;
         $record->documents = $request->documents;
-        // $record->prezzo = 1;
+        $record->prezzo    = 1;
         $record->save();
         foreach ($_POST['gb'] as $gb) {
             $newGb              = new Gb();
@@ -53,7 +55,8 @@ class TeleController extends Controller
             $newGb->save();
         }
 
-        return Resp::success($record);
+        //   dd($record->modello->marca);
+        return Resp::success(Telefono::with('modello', 'modello.marca')->find($record->id));
     }
 
     public function show($id)

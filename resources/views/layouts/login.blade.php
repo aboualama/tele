@@ -102,17 +102,6 @@ MAIN CONTENT LAYOUT
     <!-- Footer -->
     <footer id="page-footer" class="bg-body-light">
         <div class="content py-0">
-            <div class="row font-size-sm">
-                <div class="col-sm-6 order-sm-2 mb-1 mb-sm-0 text-center text-sm-right">
-                    Crafted with <i class="fa fa-heart text-danger"></i> by <a class="font-w600"
-                                                                               href="http://weeneet.com"
-                                                                               target="_blank">Weeneet</a>
-                </div>
-                <div class="col-sm-6 order-sm-1 text-center text-sm-left">
-                    <a class="font-w600" href="https://goo.gl/mDBqx1" target="_blank">Dolci Manie</a> &copy; <span
-                        data-toggle="year-copy">2018</span>
-                </div>
-            </div>
         </div>
     </footer>
     <!-- END Footer -->
@@ -120,12 +109,56 @@ MAIN CONTENT LAYOUT
 <!-- END Page Container -->
 
 
+
 <!-- Dashmix Core JS -->
 <script src="{{ mix('js/dashmix.app.js') }}"></script>
 
 <!-- Laravel Scaffolding JS -->
 <script src="{{ mix('js/laravel.app.js') }}"></script>
+<script src="{{ asset('js/notify.js') }}"></script>
+<script src="{{ asset('js/plugins/slick-carousel/slick.min.js') }}"></script>
 
+{{-- <script src="{{ asset('js/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+ <script src="{{ asset('js/plugins/editor/js/dataTables.editor.js') }}"></script> --}}
+<script src="{{ asset('js/plugins/datatables/buttons/dataTables.buttons.js') }}"></script>
+<script src="https://cdn.datatables.net/select/1.2.4/js/dataTables.select.min.js"></script>
+<script src="{{ asset('js/plugins/datatables/dataTables.bootstrap4.min.js') }}"></script>
+
+<script src="{{ asset('js/plugins/datatables/buttons/buttons.colVis.js') }}"></script>
+<script src="{{ asset('js/plugins/datatables/buttons/buttons.html5.js') }}"></script>
+<script src="{{ asset('js/plugins/datatables/buttons/buttons.print.js') }}"></script>
+<script src="{{ asset('js/plugins/datatables/buttons-bs4/buttons.bootstrap4.min.js') }}"></script>
+
+<script src="{{ asset('js/plugins/datatables/buttons/buttons.flash.js') }}"></script>
+
+
+{{--     <script src="{{ asset('js/plugins/editor/js/editor.bootstrap4.js') }}"></script>
+     <script src="{{ asset('js/plugins/select2/js/select2.full.min.js') }}"></script>
+     <script src="{{ asset('js/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+     <script src="{{ asset('js/plugins/slick-carousel/slick.min.js') }}"></script>
+     --}}
+<script src="{{ asset('js/datatable-c.js') }}"></script>
+<script src="{{ asset('js/custom.js') }}"></script>
+<script src="{{ asset('js/printThis.js') }}"></script>
+<script src="{{ asset('js/plugins/slick-carousel/slick.min.js') }}"></script>
+
+<script src="{{ asset('js/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+{{-- <script src="{{ asset('js/plugins/editor/js/dataTables.editor.js') }}"></script>--}}
+<script src="{{ asset('js/plugins/datatables/buttons/dataTables.buttons.js') }}"></script>
+<script src="https://cdn.datatables.net/select/1.2.4/js/dataTables.select.min.js"></script>
+<script src="{{ asset('js/plugins/datatables/dataTables.bootstrap4.min.js') }}"></script>
+
+<script src="{{ asset('js/plugins/datatables/buttons/buttons.colVis.js') }}"></script>
+<script src="{{ asset('js/plugins/datatables/buttons/buttons.html5.js') }}"></script>
+<script src="{{ asset('js/plugins/datatables/buttons/buttons.print.js') }}"></script>
+<script src="{{ asset('js/plugins/datatables/buttons-bs4/buttons.bootstrap4.min.js') }}"></script>
+
+<script src="{{ asset('js/plugins/datatables/buttons/buttons.flash.js') }}"></script>
+
+
+{{-- <script src="{{ asset('js/plugins/editor/js/editor.bootstrap4.js') }}"></script>--}}
+
+<script src="{{ asset('js/plugins/slick-carousel/slick.min.js') }}"></script>
 
 @yield('js_after')
 </body>
